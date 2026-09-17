@@ -1,0 +1,267 @@
+﻿Trials	2.1	20	-	The Bowl of Embers
+Trials	2.1	34	-	The Navel
+Trials	2.1	44	-	The Howling Eye
+Trials	6.1	50	42	The Porta Decumana
+Trials	3.0	50	90	The Chrysalis
+Trials	2.16	50	52	A Relic Reborn: the Chimera
+Trials	2.16	50	52	A Relic Reborn: the Hydra
+Trials	2.2	50	50	Battle on the Big Bridge
+Trials	2.4	50	80	The Dragon's Neck
+Trials	2.5	50	90	Battle in the Big Keep
+Trials	2.1	50	49	The Bowl of Embers (Hard)
+Trials	2.1	50	52	The Howling Eye (Hard)
+Trials	2.1	50	57	The Navel (Hard)
+Trials	2.2	50	54	Thornmarch (Hard)
+Trials	2.2	50	60	The Whorleater (Hard)
+Trials	2.3	50	65	The Striking Tree (Hard)
+Trials	2.4	50	80	The Akh Afah Amphitheatre (Hard)
+Trials	2.5	50	95	Urth's Fount
+Trials	2.1	50	61	The Minstrel's Ballad: Ultima's Bane
+Trials	2.1	50	65	The Howling Eye (Extreme)
+Trials	2.1	50	67	The Navel (Extreme)
+Trials	2.1	50	70	The Bowl of Embers (Extreme)
+Trials	2.2	50	80	Thornmarch (Extreme)
+Trials	2.2	50	80	The Whorleater (Extreme)
+Trials	2.3	50	85	The Striking Tree (Extreme)
+Trials	2.4	50	95	The Akh Afah Amphitheatre (Extreme)
+Trials	3.1	53	-	Thok ast Thok (Hard)
+Trials	3.1	57	-	The Limitless Blue (Hard)
+Trials	3.1	60	142	The Singularity Reactor
+Trials	3.3	60	205	The Final Steps of Faith
+Trials	3.2	60	190	Containment Bay S1T7
+Trials	3.4	60	220	Containment Bay P1T6
+Trials	3.5	60	235	Containment Bay Z1T9
+Trials	3.05	60	165	The Limitless Blue (Extreme)
+Trials	3.01	60	175	Thok ast Thok (Extreme)
+Trials	3.1	60	190	The Minstrel's Ballad: Thordan's Reign
+Trials	3.3	60	220	The Minstrel's Ballad: Nidhogg's Rage
+Trials	3.2	60	205	Containment Bay S1T7 (Extreme)
+Trials	3.4	60	235	Containment Bay P1T6 (Extreme)
+Trials	3.5	60	250	Containment Bay Z1T9 (Extreme)
+Trials	4.01	63	-	The Pool of Tribute
+Trials	4.05	67	-	Emanation
+Trials	4.1	70	280	The Royal Menagerie
+Trials	4.4	70	335	Castrum Fluminis
+Trials	4.56	70	365	Kugane Ohashi
+Trials	4.36	70	320	The Great Hunt
+Trials	4.2	70	325	The Jade Stoa
+Trials	4.4	70	355	Hells' Kier
+Trials	4.5	70	365	The Wreath of Snakes
+Trials	4.05	70	300	The Pool of Tribute (Extreme)
+Trials	4.05	70	300	Emanation (Extreme)
+Trials	4.1	70	320	The Minstrel's Ballad: Shinryu's Domain
+Trials	4.36	70	350	The Minstrel's Ballad: Tsukuyomi's Pain
+Trials	4.36	70	350	The Great Hunt (Extreme)
+Trials	4.2	70	340	The Jade Stoa (Extreme)
+Trials	4.4	70	370	Hells' Kier (Extreme)
+Trials	4.5	70	380	The Wreath of Snakes (Extreme)
+Trials	5.1	73	-	The Dancing Plague
+Trials	5.01	79	-	The Crown of the Immaculate
+Trials	5.1	80	410	The Dying Gasp
+Trials	5.2	80	455	Cinder Drift
+Trials	5.4	80	465	The Seat of Sacrifice
+Trials	3.5	80	485	Castrum Marinum
+Trials	5.5	80	495	The Cloud Deck
+Trials	5.1	80	430	The Dancing Plague (Extreme)
+Trials	5.1	80	430	The Crown of the Immaculate (Extreme)
+Trials	5.1	80	450	The Minstrel's Ballad: Hades's Elegy
+Trials	5.2	80	470	Cinder Drift (Extreme)
+Trials	5.3	80	470	Memoria Misera (Extreme)
+Trials	5.4	80	480	The Seat of Sacrifice (Extreme)
+Trials	5.4	80	500	Castrum Marinum (Extreme)
+Trials	5.5	80	510	The Cloud Deck (Extreme)
+Trials	6.1	83	-	The Dark Inside
+Trials	6.1	89	-	The Mothercrystal
+Trials	6.1	90	540	The Final Day
+Trials	6.2	90	585	Storm's Crown
+Trials	6.4	90	595	Mount Ordeals
+Trials	6.4	90	615	The Voidcast Dais
+Trials	6.5	90	625	The Abyssal Fracture
+Trials	6.55	90	625	The Gilded Araya
+Trials	6.1	90	560	The Minstrel's Ballad: Zodiark's Fall
+Trials	6.1	90	560	The Minstrel's Ballad: Hydaelyn's Call
+Trials	6.1	90	580	The Minstrel's Ballad: Endsinger's Aria
+Trials	6.3	90	600	Storm's Crown (Extreme)
+Trials	6.4	90	610	Mount Ordeals (Extreme)
+Trials	6.4	90	630	The Voidcast Dais (Extreme)
+Trials	6.5	90	640	The Abyssal Fracture (Extreme)
+Trials	7.5	100	690	Shinryu's Domain (Unreal)
+Trials	7.1	93	-	Worqor Lar Dor
+Trials	7.05	99	-	Everkeep
+Trials	7.1	100	670	The Interphos
+Trials	3.4	100	715	Recollection
+Trials	7.4	100	725	The Ageless Necropolis
+Trials	7.35	100	725	The Windward Wilds
+Trials	7.4	100	745	Hell on Rails
+Trials	7.5	100	755	The Unmaking
+Trials	7.1	100	690	Worqor Lar Dor (Extreme)
+Trials	7.1	100	690	Everkeep (Extreme)
+Trials	7.1	100	710	The Minstrel's Ballad: Sphene's Burden
+Trials	7.2	100	730	Recollection (Extreme)
+Trials	7.4	100	740	The Minstrel's Ballad: Necron's Embrace
+Trials	7.35	100	740	The Windward Wilds (Extreme)
+Trials	7.4	100	760	Hell on Rails (Extreme)
+Trials	7.5	100	770	The Unmaking (Extreme)
+Raids	2.1	50	50	The Labyrinth of the Ancients
+Raids	2.3	50	70	Syrcus Tower
+Raids	2.5	50	90	The World of Darkness
+Raids	2.2	50	70	The Binding Coil of Bahamut - Turn 1
+Raids	2.2	50	73	The Binding Coil of Bahamut - Turn 2
+Raids	2.1	50	70	The Binding Coil of Bahamut - Turn 3
+Raids	2.2	50	77	The Binding Coil of Bahamut - Turn 4
+Raids	2.1	50	82	The Binding Coil of Bahamut - Turn 5
+Raids	2.3	50	90	The Second Coil of Bahamut - Turn 1
+Raids	2.28	50	95	The Second Coil of Bahamut - Turn 2
+Raids	2.28	50	100	The Second Coil of Bahamut - Turn 3
+Raids	2.28	50	105	The Second Coil of Bahamut - Turn 4
+Raids	2.5	50	110	The Final Coil of Bahamut - Turn 1
+Raids	2.41	50	115	The Final Coil of Bahamut - Turn 2
+Raids	2.41	50	120	The Final Coil of Bahamut - Turn 3
+Raids	2.5	50	123	The Final Coil of Bahamut - Turn 4
+Raids	2.4	50	105	The Second Coil of Bahamut (Savage) - Turn 1
+Raids	2.4	50	105	The Second Coil of Bahamut (Savage) - Turn 2
+Raids	2.4	50	105	The Second Coil of Bahamut (Savage) - Turn 3
+Raids	2.38	50	105	The Second Coil of Bahamut (Savage) - Turn 4
+Raids	3.1	60	175	The Void Ark
+Raids	3.3	60	205	The Weeping City of Mhach
+Raids	3.5	60	235	Dun Scaith
+Raids	3.05	60	170	Alexander - The Fist of the Father
+Raids	3.05	60	170	Alexander - The Cuff of the Father
+Raids	3.05	60	170	Alexander - The Arm of the Father
+Raids	3.1	60	170	Alexander - The Burden of the Father
+Raids	3.25	60	200	Alexander - The Fist of the Son
+Raids	3.2	60	200	Alexander - The Cuff of the Son
+Raids	3.25	60	200	Alexander - The Arm of the Son
+Raids	3.2	60	200	Alexander - The Burden of the Son
+Raids	3.4	60	230	Alexander - The Eyes of the Creator
+Raids	3.4	60	230	Alexander - The Breath of the Creator
+Raids	3.4	60	230	Alexander - The Heart of the Creator
+Raids	3.4	60	230	Alexander - The Soul of the Creator
+Raids	3.1	60	190	Alexander - The Fist of the Father (Savage)
+Raids	3.1	60	195	Alexander - The Cuff of the Father (Savage)
+Raids	3.1	60	200	Alexander - The Arm of the Father (Savage)
+Raids	3.1	60	205	Alexander - The Burden of the Father (Savage)
+Raids	3.25	60	215	Alexander - The Fist of the Son (Savage)
+Raids	3.26	60	220	Alexander - The Cuff of the Son (Savage)
+Raids	3.25	60	225	Alexander - The Arm of the Son (Savage)
+Raids	3.2	60	225	Alexander - The Burden of the Son (Savage)
+Raids	3.4	60	245	Alexander - The Eyes of the Creator (Savage)
+Raids	3.4	60	250	Alexander - The Breath of the Creator (Savage)
+Raids	3.4	60	255	Alexander - The Heart of the Creator (Savage)
+Raids	3.4	60	255	Alexander - The Soul of the Creator (Savage)
+Raids	4.1	70	305	The Royal City of Rabanastre
+Raids	4.3	70	335	The Ridorana Lighthouse
+Raids	4.5	70	365	The Orbonne Monastery
+Raids	4.01	70	295	Deltascape V1.0
+Raids	4.01	70	295	Deltascape V2.0
+Raids	4.01	70	295	Deltascape V3.0
+Raids	4.01	70	295	Deltascape V4.0
+Raids	4.2	70	325	Sigmascape V1.0
+Raids	4.2	70	325	Sigmascape V2.0
+Raids	4.2	70	325	Sigmascape V3.0
+Raids	4.2	70	325	Sigmascape V4.0
+Raids	4.4	70	355	Alphascape V1.0
+Raids	4.4	70	355	Alphascape V2.0
+Raids	4.4	70	355	Alphascape V3.0
+Raids	4.4	70	355	Alphascape V4.0
+Raids	4.06	70	310	Deltascape V1.0 (Savage)
+Raids	4.2	70	315	Deltascape V2.0 (Savage)
+Raids	4.2	70	320	Deltascape V3.0 (Savage)
+Raids	4.05	70	320	Deltascape V4.0 (Savage)
+Raids	4.2	70	340	Sigmascape V1.0 (Savage)
+Raids	4.2	70	345	Sigmascape V2.0 (Savage)
+Raids	4.2	70	350	Sigmascape V3.0 (Savage)
+Raids	4.2	70	350	Sigmascape V4.0 (Savage)
+Raids	4.4	70	370	Alphascape V1.0 (Savage)
+Raids	4.4	70	375	Alphascape V2.0 (Savage)
+Raids	4.4	70	380	Alphascape V3.0 (Savage)
+Raids	4.4	70	380	Alphascape V4.0 (Savage)
+Raids	5.1	80	435	The Copied Factory
+Raids	5.3	80	465	The Puppets' Bunker
+Raids	5.5	80	495	The Tower at Paradigm's Breach
+Raids	5.01	80	425	Eden's Gate: Resurrection
+Raids	5.01	80	425	Eden's Gate: Descent
+Raids	5.01	80	425	Eden's Gate: Inundation
+Raids	5.01	80	425	Eden's Gate: Sepulture
+Raids	5.2	80	455	Eden's Verse: Fulmination
+Raids	5.2	80	455	Eden's Verse: Furor
+Raids	5.2	80	455	Eden's Verse: Iconoclasm
+Raids	5.2	80	455	Eden's Verse: Refulgence
+Raids	5.4	80	485	Eden's Promise: Umbra
+Raids	5.4	80	485	Eden's Promise: Litany
+Raids	5.4	80	485	Eden's Promise: Anamorphosis
+Raids	5.4	80	485	Eden's Promise: Eternity
+Raids	5.05	80	440	Eden's Gate: Resurrection (Savage)
+Raids	5.05	80	445	Eden's Gate: Descent (Savage)
+Raids	5.05	80	450	Eden's Gate: Inundation (Savage)
+Raids	5.05	80	450	Eden's Gate: Sepulture (Savage)
+Raids	5.2	80	470	Eden's Verse: Fulmination (Savage)
+Raids	5.2	80	475	Eden's Verse: Furor (Savage)
+Raids	5.2	80	480	Eden's Verse: Iconoclasm (Savage)
+Raids	5.2	80	480	Eden's Verse: Refulgence (Savage)
+Raids	5.4	80	500	Eden's Promise: Umbra (Savage)
+Raids	5.4	80	505	Eden's Promise: Litany (Savage)
+Raids	5.4	80	510	Eden's Promise: Anamorphosis (Savage)
+Raids	5.4	80	510	Eden's Promise: Eternity (Savage)
+Raids	6.1	90	565	Aglaia
+Raids	6.3	90	595	Euphrosyne
+Raids	6.5	90	625	Thaleia
+Raids	6.01	90	565	Asphodelos: The First Circle
+Raids	6.01	90	565	Asphodelos: The Second Circle
+Raids	6.01	90	565	Asphodelos: The Third Circle
+Raids	6.01	90	565	Asphodelos: The Fourth Circle
+Raids	6.2	90	585	Abyssos: The Fifth Circle
+Raids	6.2	90	585	Abyssos: The Sixth Circle
+Raids	6.2	90	585	Abyssos: The Seventh Circle
+Raids	6.2	90	585	Abyssos: The Eighth Circle
+Raids	6.4	90	615	Anabaseios: The Ninth Circle
+Raids	6.4	90	615	Anabaseios: The Tenth Circle
+Raids	6.4	90	615	Anabaseios: The Eleventh Circle
+Raids	6.4	90	615	Anabaseios: The Twelfth Circle
+Raids	6.05	90	570	Asphodelos: The First Circle (Savage)
+Raids	6.05	90	575	Asphodelos: The Second Circle (Savage)
+Raids	6.05	90	580	Asphodelos: The Third Circle (Savage)
+Raids	6.05	90	580	Asphodelos: The Fourth Circle (Savage)
+Raids	6.2	90	600	Abyssos: The Fifth Circle (Savage)
+Raids	6.2	90	605	Abyssos: The Sixth Circle (Savage)
+Raids	6.2	90	610	Abyssos: The Seventh Circle (Savage)
+Raids	6.2	90	610	Abyssos: The Eighth Circle (Savage)
+Raids	6.4	90	630	Anabaseios: The Ninth Circle (Savage)
+Raids	6.4	90	635	Anabaseios: The Tenth Circle (Savage)
+Raids	6.4	90	640	Anabaseios: The Eleventh Circle (Savage)
+Raids	6.4	90	640	Anabaseios: The Twelfth Circle (Savage)
+Raids	7.1	100	695	Jeuno: The First Walk
+Raids	7.3	100	725	San d'Oria: The Second Walk
+Raids	7.5	100	755	Windurst: The Third Walk
+Raids	7.01	100	685	AAC Light-heavyweight M1
+Raids	7.01	100	685	AAC Light-heavyweight M2
+Raids	7.01	100	685	AAC Light-heavyweight M3
+Raids	7.01	100	685	AAC Light-heavyweight M4
+Raids	7.2	100	715	AAC Cruiserweight M1
+Raids	7.2	100	715	AAC Cruiserweight M2
+Raids	7.2	100	715	AAC Cruiserweight M3
+Raids	7.2	100	715	AAC Cruiserweight M4
+Raids	7.4	100	745	AAC Heavyweight M1
+Raids	7.4	100	745	AAC Heavyweight M2
+Raids	7.4	100	745	AAC Heavyweight M3
+Raids	7.4	100	745	AAC Heavyweight M4
+Raids	7.05	100	700	AAC Light-heavyweight M1 (Savage)
+Raids	7.05	100	705	AAC Light-heavyweight M2 (Savage)
+Raids	7.05	100	710	AAC Light-heavyweight M3 (Savage)
+Raids	7.05	100	710	AAC Light-heavyweight M4 (Savage)
+Raids	7.2	100	730	AAC Cruiserweight M1 (Savage)
+Raids	7.2	100	735	AAC Cruiserweight M2 (Savage)
+Raids	7.2	100	740	AAC Cruiserweight M3 (Savage)
+Raids	7.2	100	740	AAC Cruiserweight M4 (Savage)
+Raids	7.4	100	760	AAC Heavyweight M1 (Savage)
+Raids	7.4	100	765	AAC Heavyweight M2 (Savage)
+Raids	7.4	100	770	AAC Heavyweight M3 (Savage)
+Raids	7.4	100	770	AAC Heavyweight M4 (Savage)
+Ultimate	4.1	70	-	The Unending Coil of Bahamut (Ultimate)
+Ultimate	4.3	70	-	The Weapon's Refrain (Ultimate)
+Ultimate	5.1	80	-	The Epic of Alexander (Ultimate)
+Ultimate	6.1	90	-	Dragonsong's Reprise (Ultimate)
+Ultimate	6.3	90	-	The Omega Protocol (Ultimate)
+Ultimate	7.1	100	-	Futures Rewritten (Ultimate)
+Ultimate	7.5	100	-	Dancing Mad (Ultimate)
+MISSING: 0

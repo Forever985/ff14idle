@@ -1,0 +1,468 @@
+﻿Trials	2.1	(s=2.1)	20	-	The Bowl of Embers
+Trials	2.1	(s=2.1)	34	-	The Navel
+Trials	2.1	(s=2.1)	44	-	The Howling Eye
+Trials	6.1	(s=6.1)	50	42	The Porta Decumana
+Trials	3.0	(s=3.0)	50	90	The Chrysalis
+Trials		(s=)	50	52	A Relic Reborn: the Chimera
+Trials		(s=)	50	52	A Relic Reborn: the Hydra
+Trials	2.2	(s=2.2)	50	50	Battle on the Big Bridge
+Trials	2.4	(s=2.4)	50	80	The Dragon's Neck
+Trials	2.5	(s=2.5)	50	90	Battle in the Big Keep
+Trials	2.1	(s=2.1)	50	49	The Bowl of Embers (Hard)
+Trials	2.1	(s=2.1)	50	52	The Howling Eye (Hard)
+Trials	2.1	(s=2.1)	50	57	The Navel (Hard)
+Trials	2.2	(s=2.2)	50	54	Thornmarch (Hard)
+Trials	2.2	(s=2.2)	50	60	The Whorleater (Hard)
+Trials	2.3	(s=2.3)	50	65	The Striking Tree (Hard)
+Trials	2.4	(s=2.4)	50	80	The Akh Afah Amphitheatre (Hard)
+Trials	2.5	(s=2.5)	50	95	Urth's Fount
+Trials	2.1	(s=2.1)	50	61	The Minstrel's Ballad: Ultima's Bane
+Trials	2.1	(s=2.1)	50	65	The Howling Eye (Extreme)
+Trials	2.1	(s=2.1)	50	67	The Navel (Extreme)
+Trials	2.1	(s=2.1)	50	70	The Bowl of Embers (Extreme)
+Trials	2.2	(s=2.2)	50	80	Thornmarch (Extreme)
+Trials	2.2	(s=2.2)	50	80	The Whorleater (Extreme)
+Trials	2.3	(s=2.3)	50	85	The Striking Tree (Extreme)
+Trials	2.4	(s=2.4)	50	95	The Akh Afah Amphitheatre (Extreme)
+Trials	3.1	(s=3.1)	53	-	Thok ast Thok (Hard)
+Trials	3.1	(s=3.1)	57	-	The Limitless Blue (Hard)
+Trials	3.1	(s=3.1)	60	142	The Singularity Reactor
+Trials	3.3	(s=3.3)	60	205	The Final Steps of Faith
+Trials	3.2	(s=3.2)	60	190	Containment Bay S1T7
+Trials	3.4	(s=3.4)	60	220	Containment Bay P1T6
+Trials	3.5	(s=3.5)	60	235	Containment Bay Z1T9
+Trials	3.1	(s=3.1)	60	165	The Limitless Blue (Extreme)
+Trials	3.1	(s=3.1)	60	175	Thok ast Thok (Extreme)
+Trials	3.1	(s=3.1)	60	190	The Minstrel's Ballad: Thordan's Reign
+Trials	3.3	(s=3.3)	60	220	The Minstrel's Ballad: Nidhogg's Rage
+Trials	3.2	(s=3.2)	60	205	Containment Bay S1T7 (Extreme)
+Trials	3.4	(s=3.4)	60	235	Containment Bay P1T6 (Extreme)
+Trials	3.5	(s=3.5)	60	250	Containment Bay Z1T9 (Extreme)
+Trials	4.01	(s=4.01)	63	-	The Pool of Tribute
+Trials	4.05	(s=4.05)	67	-	Emanation
+Trials	4.1	(s=)	70	280	The Royal Menagerie
+Trials	4.4	(s=)	70	335	Castrum Fluminis
+Trials	4.56	(s=4.56)	70	365	Kugane Ohashi
+Trials	4.36	(s=4.36)	70	320	The Great Hunt
+Trials	4.2	(s=4.2)	70	325	The Jade Stoa
+Trials	4.4	(s=4.4)	70	355	Hells' Kier
+Trials	4.5	(s=4.5)	70	365	The Wreath of Snakes
+Trials	4.1	(s=4.1)	70	300	The Pool of Tribute (Extreme)
+Trials	4.05	(s=4.05)	70	300	Emanation (Extreme)
+Trials	4.1	(s=4.1)	70	320	The Minstrel's Ballad: Shinryu's Domain
+Trials	4.36	(s=4.36)	70	350	The Minstrel's Ballad: Tsukuyomi's Pain
+Trials	4.36	(s=4.36)	70	350	The Great Hunt (Extreme)
+Trials	4.2	(s=4.2)	70	340	The Jade Stoa (Extreme)
+Trials	4.4	(s=4.4)	70	370	Hells' Kier (Extreme)
+Trials	4.5	(s=4.5)	70	380	The Wreath of Snakes (Extreme)
+Trials	5.1	(s=5.1)	73	-	The Dancing Plague
+Trials	5.1	(s=5.1)	79	-	The Crown of the Immaculate
+Trials	5.1	(s=5.1)	80	410	The Dying Gasp
+Trials	5.2	(s=5.2)	80	455	Cinder Drift
+Trials	5.4	(s=5.4)	80	465	The Seat of Sacrifice
+Trials	5.4	(s=5.4)	80	485	Castrum Marinum
+Trials	5.5	(s=5.5)	80	495	The Cloud Deck
+Trials	5.1	(s=5.1)	80	430	The Dancing Plague (Extreme)
+Trials	5.1	(s=)	80	430	The Crown of the Immaculate (Extreme)
+Trials	5.1	(s=5.1)	80	450	The Minstrel's Ballad: Hades's Elegy
+Trials	5.2	(s=5.2)	80	470	Cinder Drift (Extreme)
+Trials	5.3	(s=5.3)	80	470	Memoria Misera (Extreme)
+Trials	5.4	(s=5.4)	80	480	The Seat of Sacrifice (Extreme)
+Trials	5.4	(s=5.4)	80	500	Castrum Marinum (Extreme)
+Trials	5.5	(s=5.5)	80	510	The Cloud Deck (Extreme)
+Trials	6.1	(s=6.1)	83	-	The Dark Inside
+Trials	6.1	(s=6.1)	89	-	The Mothercrystal
+Trials	6.1	(s=6.1)	90	540	The Final Day
+Trials	6.3	(s=6.3)	90	585	Storm's Crown
+Trials	6.4	(s=6.4)	90	595	Mount Ordeals
+Trials	6.4	(s=6.4)	90	615	The Voidcast Dais
+Trials	6.5	(s=6.5)	90	625	The Abyssal Fracture
+Trials	6.55	(s=6.55)	90	625	The Gilded Araya
+Trials	6.1	(s=6.1)	90	560	The Minstrel's Ballad: Zodiark's Fall
+Trials	6.1	(s=6.1)	90	560	The Minstrel's Ballad: Hydaelyn's Call
+Trials	6.1	(s=6.1)	90	580	The Minstrel's Ballad: Endsinger's Aria
+Trials	6.3	(s=6.3)	90	600	Storm's Crown (Extreme)
+Trials	6.4	(s=6.4)	90	610	Mount Ordeals (Extreme)
+Trials	6.4	(s=6.4)	90	630	The Voidcast Dais (Extreme)
+Trials	6.5	(s=6.5)	90	640	The Abyssal Fracture (Extreme)
+Trials	7.5	(s=7.5)	100	690	Shinryu's Domain (Unreal)
+Trials	7.1	(s=7.1)	93	-	Worqor Lar Dor
+Trials	7.1	(s=7.1)	99	-	Everkeep
+Trials	7.1	(s=7.1)	100	670	The Interphos
+Trials	7.2	(s=7.2)	100	715	Recollection
+Trials	7.4	(s=7.4)	100	725	The Ageless Necropolis
+Trials	7.35	(s=7.35)	100	725	The Windward Wilds
+Trials	7.4	(s=7.4)	100	745	Hell on Rails
+Trials	7.5	(s=7.5)	100	755	The Unmaking
+Trials	7.1	(s=7.1)	100	690	Worqor Lar Dor (Extreme)
+Trials	7.1	(s=7.1)	100	690	Everkeep (Extreme)
+Trials	7.1	(s=7.1)	100	710	The Minstrel's Ballad: Sphene's Burden
+Trials	7.2	(s=7.2)	100	730	Recollection (Extreme)
+Trials	7.4	(s=7.4)	100	740	The Minstrel's Ballad: Necron's Embrace
+Trials	7.4	(s=7.4)	100	740	The Windward Wilds (Extreme)
+Trials	7.4	(s=7.4)	100	760	Hell on Rails (Extreme)
+Trials	7.5	(s=7.5)	100	770	The Unmaking (Extreme)
+Raids	3.2	(s=3.2)	50	50	The Labyrinth of the Ancients
+Raids	2.3	(s=2.3)	50	70	Syrcus Tower
+Raids	2.5	(s=2.5)	50	90	The World of Darkness
+Raids	2.2	(s=2.2)	50	70	The Binding Coil of Bahamut - Turn 1
+Raids	2.2	(s=2.2)	50	73	The Binding Coil of Bahamut - Turn 2
+Raids	2.2	(s=2.2)	50	70	The Binding Coil of Bahamut - Turn 3
+Raids	2.2	(s=2.2)	50	77	The Binding Coil of Bahamut - Turn 4
+Raids	2.2	(s=2.2)	50	82	The Binding Coil of Bahamut - Turn 5
+Raids	2.4	(s=2.4)	50	90	The Second Coil of Bahamut - Turn 1
+Raids	2.4	(s=2.4)	50	95	The Second Coil of Bahamut - Turn 2
+Raids	2.4	(s=2.4)	50	100	The Second Coil of Bahamut - Turn 3
+Raids	2.4	(s=2.4)	50	105	The Second Coil of Bahamut - Turn 4
+Raids	2.5	(s=2.5)	50	110	The Final Coil of Bahamut - Turn 1
+Raids	2.5	(s=2.5)	50	115	The Final Coil of Bahamut - Turn 2
+Raids	2.5	(s=2.5)	50	120	The Final Coil of Bahamut - Turn 3
+Raids	2.5	(s=2.5)	50	123	The Final Coil of Bahamut - Turn 4
+Raids	2.4	(s=2.4)	50	105	The Second Coil of Bahamut (Savage) - Turn 1
+Raids	2.4	(s=2.4)	50	105	The Second Coil of Bahamut (Savage) - Turn 2
+Raids	2.4	(s=2.4)	50	105	The Second Coil of Bahamut (Savage) - Turn 3
+Raids	2.4	(s=2.4)	50	105	The Second Coil of Bahamut (Savage) - Turn 4
+Raids	3.1	(s=3.1)	60	175	The Void Ark
+Raids	3.3	(s=3.3)	60	205	The Weeping City of Mhach
+Raids	3.5	(s=3.5)	60	235	Dun Scaith
+Raids	3.1	(s=3.1)	60	170	Alexander - The Fist of the Father
+Raids	5.2	(s=5.2)	60	170	Alexander - The Cuff of the Father
+Raids	3.1	(s=3.1)	60	170	Alexander - The Arm of the Father
+Raids	3.1	(s=3.1)	60	170	Alexander - The Burden of the Father
+Raids	3.25	(s=3.25)	60	200	Alexander - The Fist of the Son
+Raids	3.3	(s=3.3)	60	200	Alexander - The Cuff of the Son
+Raids	3.3	(s=3.3)	60	200	Alexander - The Arm of the Son
+Raids	3.3	(s=3.3)	60	200	Alexander - The Burden of the Son
+Raids	3.4	(s=3.4)	60	230	Alexander - The Eyes of the Creator
+Raids	3.4	(s=3.4)	60	230	Alexander - The Breath of the Creator
+Raids	3.4	(s=3.4)	60	230	Alexander - The Heart of the Creator
+Raids	3.4	(s=3.4)	60	230	Alexander - The Soul of the Creator
+Raids	3.1	(s=)	60	190	Alexander - The Fist of the Father (Savage)
+Raids	7.0	(s=7.0)	60	195	Alexander - The Cuff of the Father (Savage)
+Raids	3.1	(s=3.1)	60	200	Alexander - The Arm of the Father (Savage)
+Raids	3.1	(s=3.1)	60	205	Alexander - The Burden of the Father (Savage)
+Raids	3.25	(s=3.25)	60	215	Alexander - The Fist of the Son (Savage)
+Raids	3.3	(s=3.3)	60	220	Alexander - The Cuff of the Son (Savage)
+Raids	3.3	(s=3.3)	60	225	Alexander - The Arm of the Son (Savage)
+Raids	3.3	(s=3.3)	60	225	Alexander - The Burden of the Son (Savage)
+Raids	3.4	(s=3.4)	60	245	Alexander - The Eyes of the Creator (Savage)
+Raids	3.4	(s=3.4)	60	250	Alexander - The Breath of the Creator (Savage)
+Raids	3.4	(s=3.4)	60	255	Alexander - The Heart of the Creator (Savage)
+Raids	3.4	(s=3.4)	60	255	Alexander - The Soul of the Creator (Savage)
+Raids	4.1	(s=4.1)	70	305	The Royal City of Rabanastre
+Raids	4.3	(s=4.3)	70	335	The Ridorana Lighthouse
+Raids	4.5	(s=4.5)	70	365	The Orbonne Monastery
+Raids	4.2	(s=4.2)	70	295	Deltascape V1.0
+Raids	4.2	(s=4.2)	70	295	Deltascape V2.0
+Raids	4.2	(s=4.2)	70	295	Deltascape V3.0
+Raids	4.05	(s=4.05)	70	295	Deltascape V4.0
+Raids	4.2	(s=4.2)	70	325	Sigmascape V1.0
+Raids	4.2	(s=4.2)	70	325	Sigmascape V2.0
+Raids	4.2	(s=4.2)	70	325	Sigmascape V3.0
+Raids	4.2	(s=4.2)	70	325	Sigmascape V4.0
+Raids	4.4	(s=4.4)	70	355	Alphascape V1.0
+Raids	4.4	(s=4.4)	70	355	Alphascape V2.0
+Raids	4.4	(s=4.4)	70	355	Alphascape V3.0
+Raids	4.4	(s=4.4)	70	355	Alphascape V4.0
+Raids	4.2	(s=4.2)	70	310	Deltascape V1.0 (Savage)
+Raids	4.2	(s=4.2)	70	315	Deltascape V2.0 (Savage)
+Raids	4.2	(s=4.2)	70	320	Deltascape V3.0 (Savage)
+Raids	4.05	(s=4.05)	70	320	Deltascape V4.0 (Savage)
+Raids	4.2	(s=4.2)	70	340	Sigmascape V1.0 (Savage)
+Raids	4.2	(s=4.2)	70	345	Sigmascape V2.0 (Savage)
+Raids	4.2	(s=4.2)	70	350	Sigmascape V3.0 (Savage)
+Raids	4.2	(s=4.2)	70	350	Sigmascape V4.0 (Savage)
+Raids	4.4	(s=4.4)	70	370	Alphascape V1.0 (Savage)
+Raids	4.4	(s=4.4)	70	375	Alphascape V2.0 (Savage)
+Raids	4.4	(s=4.4)	70	380	Alphascape V3.0 (Savage)
+Raids	4.4	(s=4.4)	70	380	Alphascape V4.0 (Savage)
+Raids	5.1	(s=5.1)	80	435	The Copied Factory
+Raids	5.3	(s=5.3)	80	465	The Puppets' Bunker
+Raids	5.5	(s=5.5)	80	495	The Tower at Paradigm's Breach
+Raids	5.01	(s=5.01)	80	425	Eden's Gate: Resurrection
+Raids	5.01	(s=5.01)	80	425	Eden's Gate: Descent
+Raids	5.01	(s=5.01)	80	425	Eden's Gate: Inundation
+Raids	5.01	(s=5.01)	80	425	Eden's Gate: Sepulture
+Raids	5.2	(s=5.2)	80	455	Eden's Verse: Fulmination
+Raids	5.2	(s=5.2)	80	455	Eden's Verse: Furor
+Raids	5.2	(s=5.2)	80	455	Eden's Verse: Iconoclasm
+Raids	5.2	(s=5.2)	80	455	Eden's Verse: Refulgence
+Raids	5.4	(s=5.4)	80	485	Eden's Promise: Umbra
+Raids	5.4	(s=5.4)	80	485	Eden's Promise: Litany
+Raids	5.4	(s=5.4)	80	485	Eden's Promise: Anamorphosis
+Raids	5.4	(s=5.4)	80	485	Eden's Promise: Eternity
+Raids	5.05	(s=5.05)	80	440	Eden's Gate: Resurrection (Savage)
+Raids	5.05	(s=5.05)	80	445	Eden's Gate: Descent (Savage)
+Raids	5.05	(s=5.05)	80	450	Eden's Gate: Inundation (Savage)
+Raids	5.05	(s=5.05)	80	450	Eden's Gate: Sepulture (Savage)
+Raids	5.2	(s=5.2)	80	470	Eden's Verse: Fulmination (Savage)
+Raids	5.2	(s=5.2)	80	475	Eden's Verse: Furor (Savage)
+Raids	5.2	(s=5.2)	80	480	Eden's Verse: Iconoclasm (Savage)
+Raids	5.2	(s=5.2)	80	480	Eden's Verse: Refulgence (Savage)
+Raids	5.4	(s=5.4)	80	500	Eden's Promise: Umbra (Savage)
+Raids	5.4	(s=5.4)	80	505	Eden's Promise: Litany (Savage)
+Raids	5.4	(s=5.4)	80	510	Eden's Promise: Anamorphosis (Savage)
+Raids	5.4	(s=5.4)	80	510	Eden's Promise: Eternity (Savage)
+Raids	6.1	(s=6.1)	90	565	Aglaia
+Raids	6.3	(s=6.3)	90	595	Euphrosyne
+Raids	6.5	(s=6.5)	90	625	Thaleia
+Raids	6.01	(s=6.01)	90	565	Asphodelos: The First Circle
+Raids	6.01	(s=6.01)	90	565	Asphodelos: The Second Circle
+Raids	6.01	(s=6.01)	90	565	Asphodelos: The Third Circle
+Raids	6.01	(s=6.01)	90	565	Asphodelos: The Fourth Circle
+Raids	6.2	(s=6.2)	90	585	Abyssos: The Fifth Circle
+Raids	6.2	(s=6.2)	90	585	Abyssos: The Sixth Circle
+Raids	6.2	(s=6.2)	90	585	Abyssos: The Seventh Circle
+Raids	6.2	(s=6.2)	90	585	Abyssos: The Eighth Circle
+Raids	6.4	(s=6.4)	90	615	Anabaseios: The Ninth Circle
+Raids	6.4	(s=6.4)	90	615	Anabaseios: The Tenth Circle
+Raids	6.4	(s=6.4)	90	615	Anabaseios: The Eleventh Circle
+Raids	6.4	(s=6.4)	90	615	Anabaseios: The Twelfth Circle
+Raids	6.05	(s=6.05)	90	570	Asphodelos: The First Circle (Savage)
+Raids	6.05	(s=6.05)	90	575	Asphodelos: The Second Circle (Savage)
+Raids	6.05	(s=6.05)	90	580	Asphodelos: The Third Circle (Savage)
+Raids	6.05	(s=6.05)	90	580	Asphodelos: The Fourth Circle (Savage)
+Raids	6.2	(s=6.2)	90	600	Abyssos: The Fifth Circle (Savage)
+Raids	6.2	(s=6.2)	90	605	Abyssos: The Sixth Circle (Savage)
+Raids	6.2	(s=6.2)	90	610	Abyssos: The Seventh Circle (Savage)
+Raids	6.2	(s=6.2)	90	610	Abyssos: The Eighth Circle (Savage)
+Raids	6.4	(s=6.4)	90	630	Anabaseios: The Ninth Circle (Savage)
+Raids	6.4	(s=6.4)	90	635	Anabaseios: The Tenth Circle (Savage)
+Raids	6.4	(s=6.4)	90	640	Anabaseios: The Eleventh Circle (Savage)
+Raids	6.4	(s=6.4)	90	640	Anabaseios: The Twelfth Circle (Savage)
+Raids	7.1	(s=7.1)	100	695	Jeuno: The First Walk
+Raids	7.3	(s=7.3)	100	725	San d'Oria: The Second Walk
+Raids	7.5	(s=7.5)	100	755	Windurst: The Third Walk
+Raids	7.01	(s=7.01)	100	685	AAC Light-heavyweight M1
+Raids	7.01	(s=7.01)	100	685	AAC Light-heavyweight M2
+Raids	7.01	(s=7.01)	100	685	AAC Light-heavyweight M3
+Raids	7.01	(s=7.01)	100	685	AAC Light-heavyweight M4
+Raids	7.2	(s=7.2)	100	715	AAC Cruiserweight M1
+Raids	7.2	(s=7.2)	100	715	AAC Cruiserweight M2
+Raids	7.2	(s=7.2)	100	715	AAC Cruiserweight M3
+Raids	7.2	(s=7.2)	100	715	AAC Cruiserweight M4
+Raids	7.4	(s=7.4)	100	745	AAC Heavyweight M1
+Raids	7.4	(s=7.4)	100	745	AAC Heavyweight M2
+Raids	7.4	(s=7.4)	100	745	AAC Heavyweight M3
+Raids	7.4	(s=7.4)	100	745	AAC Heavyweight M4
+Raids	7.05	(s=7.05)	100	700	AAC Light-heavyweight M1 (Savage)
+Raids	7.05	(s=7.05)	100	705	AAC Light-heavyweight M2 (Savage)
+Raids	7.05	(s=7.05)	100	710	AAC Light-heavyweight M3 (Savage)
+Raids	7.05	(s=7.05)	100	710	AAC Light-heavyweight M4 (Savage)
+Raids	7.2	(s=7.2)	100	730	AAC Cruiserweight M1 (Savage)
+Raids	7.2	(s=7.2)	100	735	AAC Cruiserweight M2 (Savage)
+Raids	7.2	(s=7.2)	100	740	AAC Cruiserweight M3 (Savage)
+Raids	7.2	(s=7.2)	100	740	AAC Cruiserweight M4 (Savage)
+Raids	7.4	(s=7.4)	100	760	AAC Heavyweight M1 (Savage)
+Raids	7.4	(s=7.4)	100	765	AAC Heavyweight M2 (Savage)
+Raids	7.4	(s=7.4)	100	770	AAC Heavyweight M3 (Savage)
+Raids	7.4	(s=7.4)	100	770	AAC Heavyweight M4 (Savage)
+Ultimate	4.11	(s=4.11)	70	-	The Unending Coil of Bahamut (Ultimate)
+Ultimate	4.31	(s=4.31)	70	-	The Weapon's Refrain (Ultimate)
+Ultimate	5.11	(s=5.11)	80	-	The Epic of Alexander (Ultimate)
+Ultimate	6.11	(s=6.11)	90	-	Dragonsong's Reprise (Ultimate)
+Ultimate	6.3	(s=)	90	-	The Omega Protocol (Ultimate)
+Ultimate	7.11	(s=7.11)	100	-	Futures Rewritten (Ultimate)
+Ultimate	7.51	(s=7.51)	100	-	Dancing Mad (Ultimate)
+=== UNREAL MENTIONS ===
+5.3	Unreal Trial The unreal challenge for this update is the Akh Afah Amphitheatre (Unreal)
+5.3	The Akh Afah Amphitheatre (Unreal)
+5.3	The Akh Afah Amphitheatre (Unreal)
+5.3	Raid Finder: ??? (Extreme) The Akh Afah Amphitheatre (Unreal)
+5.3	Knight) But Somebody's Gotta Do It (Dark Knight) ??? (Extreme) The Akh Afah Amphitheatre (Unreal)
+5.3	III Tank You, Gunbreaker IV The Heroes' Gauntlet ??? (Extreme) The Akh Afah Amphitheatre (Unreal)
+5.4	Before After The Akh Afah Amphitheatre (Unreal)
+5.4	The Navel (Unreal)
+5.4	The Navel (Unreal)
+5.4	Following the release of The Navel (Unreal)
+5.4	The Akh Afah Amphitheatre (Unreal)
+5.4	The Navel (Unreal)
+5.4	Raid Finder: Castrum Marinum (Extreme) The Navel (Unreal)
+5.4	Akh Afah Amphitheatre (Unreal)
+5.4	Dark Knight) But Somebody's Gotta Do It (Dark Knight) Castrum Marinum (Extreme) The Navel (Unreal)
+5.4	Gunbreaker III Tank You, Gunbreaker IV Matoya's Relict Castrum Marinum (Extreme) The Navel (Unreal)
+5.5	Before After The Navel (Unreal)
+5.5	The Whorleater (Unreal)
+5.5	The Whorleater (Unreal)
+5.5	Following the release of The Whorleater (Unreal)
+5.5	The Navel (Unreal)
+5.5	The Whorleater (Unreal)
+5.5	Raid Finder: The Cloud Deck (Extreme) The Whorleater (Unreal)
+5.5	Knight) But Somebody's Gotta Do It (Dark Knight) The Cloud Deck (Extreme) The Whorleater (Unreal)
+5.5	IV Paglth'an The Tower at Paradigm's Breach The Cloud Deck (Extreme) The Whorleater (Unreal)
+6.1	Before After The Whorleater (Unreal)
+6.1	Ultima's Bane (Unreal)
+6.1	Ultima's Bane (Unreal)
+6.1	Ultima's Bane (Unreal)
+6.1	Raid Finder: The Minstrel's Ballad: Endsinger's Aria Ultima's Bane (Unreal)
+6.1	Somebody's Gotta Do It (Dark Knight) The Minstrel's Ballad: Endsinger's Aria Ultima's Bane (Unreal)
+6.1	IV Tank You, Gunbreaker V Aglaia The Minstrel's Ballad: Endsinger's Aria Ultima's Bane (Unreal)
+6.2	Before After Ultima's Bane (Unreal)
+6.2	Containment Bay S1T7 (Unreal)
+6.2	Players must first complete Containment Bay S1T7 before challenging Containment Bay S1T7 (Unreal)
+6.2	Containment Bay S1T7 (Unreal)
+6.2	Following the release of Containment Bay S1T7 (Unreal)
+6.2	Ultima's Bane (Unreal)
+6.2	Containment Bay S1T7 (Unreal)
+6.2	Players must first complete Containment Bay S1T7 before challenging Containment Bay S1T7 (Unreal)
+6.2	II x 4 The following duties have been added to the Raid Finder: ??? Containment Bay S1T7 (Unreal)
+6.2	Furthermore, Ultima's Bane (Unreal)
+6.2	It (Dark Knight) Pandæmonium: Abyssos Pandæmonium: Abyssos (Savage) Containment Bay S1T7 (Unreal)
+6.2	Court of Troia Pandæmonium: Abyssos Pandæmonium: Abyssos (Savage) Containment Bay S1T7 (Unreal)
+6.3	Before After Containment Bay S1T7 (Unreal)
+6.3	Containment Bay P1T6 (Unreal)
+6.3	Containment Bay P1T6 (Unreal)
+6.3	Following the release of Containment Bay P1T6 (Unreal)
+6.3	Containment Bay S1T7 (Unreal)
+6.3	Containment Bay P1T6 (Unreal)
+6.3	Players must first complete Containment Bay P1T6 before challenging Containment Bay P1T6 (Unreal)
+6.3	The following duties have been added to the Raid Finder: ??? Containment Bay P1T6 (Unreal)
+6.3	Furthermore, Containment Bay S1T7 (Unreal)
+6.3	Job II (Dark Knight) But Somebody's Gotta Do It (Dark Knight) Containment Bay P1T6 (Unreal)
+6.3	III Tank You, Gunbreaker IV Tank You, Gunbreaker V Lapis Manalis Containment Bay P1T6 (Unreal)
+6.4	Before After Containment Bay P1T6 (Unreal)
+6.4	Containment Bay Z1T9 (Unreal)
+6.4	Containment Bay Z1T9 (Unreal)
+6.4	Following the release of Containment Bay Z1T9 (Unreal)
+6.4	Containment Bay P1T6 (Unreal)
+6.4	Containment Bay Z1T9 (Unreal)
+6.4	Players must first complete Containment Bay Z1T9 before challenging Containment Bay Z1T9 (Unreal)
+6.4	Raid Finder: The Voidcast Dais (Extreme) Containment Bay Z1T9 (Unreal)
+6.4	Containment Bay P1T6 (Unreal)
+6.4	Dark Knight) Pandæmonium: Anabaseios Pandæmonium: Anabaseios (Savage) Containment Bay Z1T9 (Unreal)
+6.4	Aetherfont Pandæmonium: Anabaseios Pandæmonium: Anabaseios (Savage) Containment Bay Z1T9 (Unreal)
+6.5	Before After Containment Bay Z1T9 (Unreal)
+6.5	The Singularity Reactor (Unreal)
+6.5	The Singularity Reactor (Unreal)
+6.5	Following the release of the Singularity Reactor (Unreal)
+6.5	Containment Bay Z1T9 (Unreal)
+6.5	The Singularity Reactor (Unreal)
+6.5	Raid Finder: The Abyssal Fracture (Extreme) The Singularity Reactor (Unreal)
+6.5	Containment Bay Z1T9 (Unreal)
+6.5	Job II (Dark Knight) But Somebody's Gotta Do It (Dark Knight) The Singularity Reactor (Unreal)
+6.5	You, Gunbreaker IV Tank You, Gunbreaker V The Lunar Subterrane The Singularity Reactor (Unreal)
+7.1	Before After The Singularity Reactor (Unreal)
+7.1	The Jade Stoa (Unreal)
+7.1	The Jade Stoa (Unreal)
+7.1	The Jade Stoa (Unreal)
+7.1	The Minstrel's Ballad: Sphene's Burden The Jade Stoa (Unreal)
+7.1	The Singularity Reactor (Unreal)
+7.1	A Tankless Job II (Dark Knight) But Somebody's Gotta Do It (Dark Knight) The Jade Stoa (Unreal)
+7.1	III Tank You, Gunbreaker IV Tank You, Gunbreaker V Yuweyawata Field Station The Jade Stoa (Unreal)
+7.2	Before After The Jade Stoa (Unreal)
+7.2	Hells' Kier (Unreal)
+7.2	Players must first complete Hells' Kier before challenging Hells' Kier (Unreal)
+7.2	Hells' Kier (Unreal)
+7.2	Hells' Kier (Unreal)
+7.2	Following the release of Hells' Kier (Unreal)
+7.2	Jade Stoa (Unreal)
+7.2	Raid Finder: Recollection (Extreme) Hells' Kier (Unreal)
+7.2	Jade Stoa (Unreal)
+7.2	Do It (Dark Knight) AAC Cruiserweight Tier AAC Cruiserweight Tier (Savage) Hells' Kier (Unreal)
+7.2	V The Underkeep AAC Cruiserweight Tier AAC Cruiserweight Tier (Savage) Hells' Kier (Unreal)
+7.3	Before After Hells' Kier (Unreal)
+7.3	The Wreath of Snakes (Unreal)
+7.3	The Wreath of Snakes (Unreal)
+7.3	The Wreath of Snakes (Unreal)
+7.3	Following the release of the Wreath of Snakes (Unreal)
+7.3	Hells' Kier (Unreal)
+7.3	The following duties have been added to the Raid Finder: ??? The Wreath of Snakes (Unreal)
+7.3	Hells' Kier (Unreal)
+7.3	Job II (Dark Knight) But Somebody's Gotta Do It (Dark Knight) The Wreath of Snakes (Unreal)
+7.3	III Tank You, Gunbreaker IV Tank You, Gunbreaker V The Meso Terminal The Wreath of Snakes (Unreal)
+7.4	Before After The Wreath of Snakes (Unreal)
+7.4	Tsukuyomi's Pain (Unreal)
+7.4	Tsukuyomi's Pain (Unreal)
+7.4	Tsukuyomi's Pain (Unreal)
+7.4	Following the release of Tsukuyomi's Pain (Unreal)
+7.4	The Wreath of Snakes (Unreal)
+7.4	Raid Finder: Hell on Rails (Extreme) Tsukuyomi's Pain (Unreal)
+7.4	The Wreath of Snakes (Unreal)
+7.4	Do It (Dark Knight) AAC Heavyweight Tier AAC Heavyweight Tier (Savage) Tsukuyomi's Pain (Unreal)
+7.4	Gunbreaker VI Mistwake AAC Heavyweight Tier AAC Heavyweight Tier (Savage) Tsukuyomi's Pain (Unreal)
+7.5	Before After Tsukuyomi's Pain (Unreal)
+7.5	Shinryu's Domain (Unreal)
+7.5	Shinryu's Domain (Unreal)
+7.5	Shinryu's Domain (Unreal)
+7.5	Following the release of Shinryu's Domain (Unreal)
+7.5	Tsukuyomi's Pain (Unreal)
+7.5	Raid Finder: The Unmaking (Extreme) Shinryu's Domain (Unreal)
+7.5	Tsukuyomi's Pain (Unreal)
+7.5	A Tankless Job II (Dark Knight) But Somebody's Gotta Do It (Dark Knight) Shinryu's Domain (Unreal)
+7.5	Gunbreaker IV Tank You, Gunbreaker V Tank You, Gunbreaker VI The Clyteum Shinryu's Domain (Unreal)
+=== ULTIMATE MENTIONS ===
+4.1	The Unending Coil of Bahamut (Ultimate)
+4.11	Ultimate difficulty high-end duty, The Unending Coil of Bahamut (Ultimate)
+4.11	Battle System The high-end duty The Unending Coil of Bahamut (Ultimate)
+4.11	Entering The Unending Coil of Bahamut (Ultimate)
+4.11	The Unending Coil of Bahamut (Ultimate)
+4.11	Completion Reward Upon completing The Unending Coil of Bahamut (Ultimate)
+4.2	The following adjustments have been made to the Unending Coil of Bahamut (Ultimate)
+4.3	The Weapon's Refrain (Ultimate)
+4.31	Ultimate difficulty high-end duty, The Weapon's Refrain (Ultimate)
+4.31	Battle System The high-end duty The Weapon's Refrain (Ultimate)
+4.31	Entering The Weapon's Refrain (Ultimate)
+4.31	The Weapon's Refrain (Ultimate)
+4.31	Completion Reward Upon completing The Weapon's Refrain (Ultimate)
+4.31	An issue in the Unending Coil of Bahamut (Ultimate)
+4.35	An issue in the Weapon's Refrain (Ultimate)
+4.35	An issue in the Weapon's Refrain (Ultimate)
+4.36	Savage) Omega: Deltascape (Savage) Omega: Sigmascape (Savage) The Unending Coil of Bahamut (Ultimate)
+4.36	The Weapon's Refrain (Ultimate)
+4.36	Omega: Deltascape (Savage) Omega: Sigmascape (Savage) The Unending Coil of Bahamut (Ultimate)
+4.36	The Weapon's Refrain (Ultimate)
+4.4	The following adjustments have been made to the Weapon's Refrain (Ultimate)
+4.4	Viscous Aetheroplasm in the high-end duty The Weapon's Refrain (Ultimate)
+5.0	However, the Unending Coil of Bahamut (Ultimate)
+5.0	Weapon's Refrain (Ultimate)
+5.1	Additional features will be implemented in future updates: * The Epic of Alexander (Ultimate)
+5.1	The Unending Coil of Bahamut (Ultimate)
+5.1	Weapon's Refrain (Ultimate)
+5.11	The high-end duty The Epic of Alexander (Ultimate)
+5.11	Entering The Epic of Alexander (Ultimate)
+5.11	The Epic of Alexander (Ultimate)
+5.11	Completion Reward Upon completing The Epic of Alexander (Ultimate)
+5.11	Known Issues An issue in The Epic of Alexander (Ultimate)
+5.11	An issue in The Epic of Alexander (Ultimate)
+5.2	The following adjustments have been made to the Epic of Alexander (Ultimate)
+5.57	An issue when undertaking the duty the Weapon's Refrain (Ultimate)
+5.58	An issue in the Epic of Alexander (Ultimate)
+6.0	However, the Unending Coil of Bahamut (Ultimate)
+6.0	Weapon's Refrain (Ultimate)
+6.0	Epic of Alexander (Ultimate)
+6.1	Additional features will be implemented in future updates: Dragonsong's Reprise (Ultimate)
+6.1	Contact Prohibition" and "Escape Prohibition" in the Epic of Alexander (Ultimate)
+6.11	The high-end duty Dragonsong's Reprise (Ultimate)
+6.11	Entering Dragonsong's Reprise (Ultimate)
+6.11	Dragonsong's Reprise (Ultimate)
+6.11	Completion Reward Upon completing Dragonsong's Reprise (Ultimate)
+6.2	The weekly restriction on obtaining Dragonsong Tokens from Dragonsong's Reprise (Ultimate)
+6.3	Additional features will be implemented in future updates: The Omega Protocol (Ultimate)
+6.31	Omega Protocol (Ultimate)
+6.31	Battle System The high-end duty the Omega Protocol (Ultimate)
+6.31	Entering the Omega Protocol (Ultimate)
+6.31	The Omega Protocol (Ultimate)
+6.31	Completion Reward Upon completing the Omega Protocol (Ultimate)
+6.31	Omega Protocol (Ultimate)
+6.35	An issue in the Omega Protocol (Ultimate)
+6.4	The following adjustments have been made to the Omega Protocol (Ultimate)
+6.48	An issue in the first phase of the Omega Protocol (Ultimate)
+7.0	However, the Unending Coil of Bahamut (Ultimate)
+7.0	Weapon's Refrain (Ultimate)
+7.0	Epic of Alexander (Ultimate)
+7.0	Dragonsong's Reprise (Ultimate)
+7.0	Omega Protocol (Ultimate)
+7.1	Additional features will be implemented in future updates: Futures Rewritten (Ultimate)
+7.11	Battle System The high-end duty Futures Rewritten (Ultimate)
+7.11	Entering Futures Rewritten (Ultimate)
+7.11	Futures Rewritten (Ultimate)
+7.11	Completion Reward Upon completing Futures Rewritten (Ultimate)
+7.2	The following adjustments have been made to Futures Rewritten (Ultimate)
+7.3	Savage), and the Omega Protocol (Ultimate)
+7.5	Quests - Cosmic Tools, the new custom deliveries client Tiisol Ja, and Dancing Mad (Ultimate)
+7.51	Dancing Mad (Ultimate)
+7.51	Battle System The high-end duty Dancing Mad (Ultimate)
+7.51	Entering Dancing Mad (Ultimate)
+7.51	Dancing Mad (Ultimate)
+7.51	Completion Reward Upon completing Dancing Mad (Ultimate)
+7.55	When undertaking the duty Dancing Mad (Ultimate)

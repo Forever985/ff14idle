@@ -1,0 +1,25 @@
+# 依赖与构建产物（gh-pages 分支上才有产物，源码分支不需要）
+app/node_modules/
+app/dist/
+app/dist-single/
+
+# 本地发布配置：里面有你的仓库地址，不必进版本库
+.deploy.json
+
+# 测试截图：每次跑测试都会重写，进版本库只会让每次提交都脏
+# 想看就本地跑 python tools/ui_shot.py
+app/screenshots/
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+*.log
+
+# 调研阶段的**原始抓取物**（第三方网页、官方补丁说明原文）。
+# 不进公开仓库的理由有两个：一是它们占了 docs 里 10MB 中的 9.5MB，
+# 二是"把别处的原文重新分发"本身有法务风险（见 docs/07 的红线清单）。
+# 由它们整理出来的分析文档仍然入库。
+docs/_research/_raw/
+docs/_research/_patchnotes/
