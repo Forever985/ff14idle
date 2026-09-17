@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>艾欧泽亚放置 · FF14 Idle</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="非商业同人放置游戏：派队伍下副本，关掉页面也在继续。" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0b0d12" />
+
+  <!--
+    手机「添加到主屏幕」用的一整套：
+    · manifest  —— Android / Chrome 的安装信息与图标
+    · apple-touch-icon —— iOS 主屏图标（iOS 不读 manifest 的图标）
+    · apple-mobile-web-app-* —— iOS 从主屏点开时隐藏地址栏，像原生 App
+    图标全部由 tools/gen-icons.py 从 public/icon.svg 生成。
+  -->
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="艾欧泽亚放置" />
+
+  <!--
+    非官方同人作品声明（依据 docs/07-data-sources-licensing.md 的合规要求）：
+    本作品为非商业同人创作，与 SQUARE ENIX CO., LTD. 无任何关联。
+    FINAL FANTASY 是 SQUARE ENIX 的注册商标。本作品不使用其素材、音乐或文本数据。
+  -->
+  <!--
+    主题要在**首次绘制之前**落地，否则浅色用户会先看到一帧深色再闪一下。
+    所以这段内联在 <head> 里：它比由 main.ts 引入的样式表更早执行
+    （模块脚本天然是延迟的）。这里不能 import 模块，所以只做最小的一件事。
+  -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('ff14idle.theme');
+        var theme = saved === 'light' || saved === 'dark'
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.dataset.theme = theme;
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'light' ? '#eef4f3' : '#071316');
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="./assets/index-CK8Dv0yb.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DxENMb9M.css">
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
