@@ -8,7 +8,7 @@ import type { DungeonDef, ExpeditionResult, GameState, MemberState } from '../ty
 import { defaultFacility } from './facility';
 import { GOALS } from './goals';
 
-export const SAVE_VERSION = 7;
+export const SAVE_VERSION = 8;
 
 export function newGame(guildName = '拂晓血盟'): GameState {
   const members: MemberState[] = COMPANIONS.filter((c) => c.unlockChapter <= 1).map((c) => ({
@@ -46,6 +46,7 @@ export function newGame(guildName = '拂晓血盟'): GameState {
     towerSeason: { key: '', best: 0 },
     createdAt: Date.now(),
     lastSeen: Date.now(),
+    lastExportAt: 0,
     integrity: { seq: 0, digest: '' },
   };
 }

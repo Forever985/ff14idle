@@ -225,7 +225,53 @@ def main() -> int:
             page.wait_for_timeout(300)
             check("再次点击收起详情", page.locator(".node-detail").count() == 0)
 
-        # 9) 无 JS 错误
+        # 9) 主题：切换 + 两套配色都截一张
+        #    配色是"整体观感"的东西，光靠断言测不出好看，但至少能保证：
+        #    切换真的生效、刷新后记得住、浅色下没有元素还留着深色底。
+        page.locator("[data-action='tab'][data-tab='dispatch']").click()
+        page.wait_for_timeout(300)
+        before = page.evaluate("() => document.documentElement.dataset.theme")
+        page.locator("[data-action='toggle-theme']").click()
+        page.wait_for_timeout(400)
+        after = page.evaluate("() => document.documentElement.dataset.theme")
+        check("点按钮能切换深浅主题", before != after, f"{before} -> {after}")
+        check("主题记忆写进 localStorage",
+              page.evaluate("() => localStorage.getItem('ff14idle.theme')") == after)
+
+        stored = after
+        for theme in ("dark", "light"):
+            if theme != stored:
+                page.locator("[data-action='toggle-theme']").click()
+                page.wait_for_timeout(350)
+            got = page.evaluate("() => document.documentElement.dataset.theme")
+            check(f"能切到 {theme} 主题", got == theme, got)
+            for tab in ("dispatch", "party"):
+                if tab != "dispatch":
+                    page.locator(f"[data-action='tab'][data-tab='{tab}']").click()
+                    page.wait_for_timeout(350)
+                page.screenshot(path=str(OUT / f"theme-{theme}-{tab}.png"), full_page=True)
+            page.locator("[data-action='tab'][data-tab='dispatch']").click()
+            page.wait_for_timeout(250)
+
+        # 浅色下不该还有"深色底"的漏网元素（卡片/面板这类大面积的东西）
+        page.locator("[data-action='tab'][data-tab='party']").click()
+        page.wait_for_timeout(400)
+        dark_areas = page.evaluate(
+            """() => {
+            const bad = [];
+            const lum = (c) => { const m = c.match(/rgba?\\((\\d+), (\\d+), (\\d+)(?:, ([\\d.]+))?/);
+              if (!m) return null; if (m[4] !== undefined && +m[4] < 0.5) return null;
+              return (+m[1] + +m[2] + +m[3]) / 3; };
+            for (const el of document.querySelectorAll('.panel, .card, .topbar, .nav, .btn, .tag, td, th')) {
+              const l = lum(getComputedStyle(el).backgroundColor);
+              if (l !== null && l < 90) bad.push((el.className || el.tagName) + '=' + getComputedStyle(el).backgroundColor);
+            }
+            return bad.slice(0, 6);
+          }"""
+        )
+        check("浅色主题下没有残留的深色底", len(dark_areas) == 0, "; ".join(dark_areas))
+
+        # 10) 无 JS 错误
         check("全程无 JS 错误", len(errors) == 0, "; ".join(errors[:2])[:180])
 
         browser.close()

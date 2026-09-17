@@ -29,6 +29,26 @@
     本作品为非商业同人创作，与 SQUARE ENIX CO., LTD. 无任何关联。
     FINAL FANTASY 是 SQUARE ENIX 的注册商标。本作品不使用其素材、音乐或文本数据。
   -->
+  <!--
+    主题要在**首次绘制之前**落地，否则浅色用户会先看到一帧深色再闪一下。
+    所以这段内联在 <head> 里：它比由 main.ts 引入的样式表更早执行
+    （模块脚本天然是延迟的）。这里不能 import 模块，所以只做最小的一件事。
+  -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('ff14idle.theme');
+        var theme = saved === 'light' || saved === 'dark'
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.dataset.theme = theme;
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'light' ? '#eef4f3' : '#071316');
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    })();
+  </script>
 </head>
 <body>
   <div id="app"></div>

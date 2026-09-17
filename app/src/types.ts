@@ -312,6 +312,8 @@ export interface GameState {
   towerSeason: { key: string; best: number };
   createdAt: number;
   lastSeen: number;
+  /** 上次导出存档的时间（0 = 从未导出）。手机端本地存储可能被系统清理，靠它做备份提醒 */
+  lastExportAt: number;
   /** 完整性校验 */
   integrity: { seq: number; digest: string };
 }

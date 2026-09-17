@@ -19,6 +19,10 @@ def main() -> int:
         page = browser.new_page()
         page.goto(URL, wait_until="networkidle")
         page.wait_for_timeout(700)
+        # 明确给每个操作设上限：这个套件出现过两次"渲染进程卡住、page.evaluate 永不返回"。
+        # 没设超时的调用会一直等下去（运行器只能靠 180s 兜底），设了之后 20s 内就会报错，
+        # 运行器能立刻拿到结论并重试一次。
+        page.set_default_timeout(20000)
 
         # 用界面上「已选中的小队」（即 main.ts 的默认编队：坦克+治疗+两名输出）
         party = page.eval_on_selector_all(

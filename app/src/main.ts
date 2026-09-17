@@ -25,6 +25,8 @@ import { abandonTrial, advanceTrial, startTrial } from './game/trial';
 import { resolveExpedition } from './sim/combat';
 import { bindEvents, render, renderProgressOnly, ui } from './ui/app';
 import { flash } from './ui/toast';
+import { startBackupWatch } from './ui/backup';
+import { initTheme } from './ui/theme';
 import { APP_BUILD, APP_VERSION, startUpdateWatch } from './ui/version';
 
 const AUTOSAVE_MS = 15000;
@@ -82,6 +84,9 @@ declare global {
 }
 
 function boot(): void {
+  // 主题：首屏已经由 index.html 的内联脚本落地，这里只接管后续（跟随系统 / 手动切换）
+  initTheme();
+
   const loaded = loadGame();
   const state = loaded.state ?? newGame();
   store.set(state);
@@ -229,6 +234,9 @@ function boot(): void {
 
   // 部署站点上主动探测新构建（手机加到主屏后没有刷新按钮，只能靠它）
   startUpdateWatch();
+
+  // 手机端本地存储有被系统清理的风险 —— 定期提醒导出存档
+  startBackupWatch();
 }
 
 boot();

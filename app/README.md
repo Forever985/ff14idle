@@ -35,6 +35,13 @@
 - **空状态给"下一步做什么"**，而不是干巴巴的"暂无"。
 - **进度条**：内描边 + 斜纹 + 高光；到期时整条微微呼吸，提示"可以收了"。
 - **面板**：统一的标题竖条 + 内高光 + 入场淡入；卡片悬停轻微抬起。
+- **深浅主题**：默认**跟随系统**，顶栏右上角可手动切换（切过之后记住选择）。
+  实现上有一条硬规矩：`styles.css` 的规则里**只允许出现 `var(--x)`**，不许再写颜色字面量——
+  否则新主题一开就花。淡色系用 `rgb(var(--gold-rgb) / .16)` 这种"通道 + alpha"写法，
+  换主题只改通道值，一整族透明度都不用重写；`--hl-rgb` 在浅色下从白翻成黑，
+  于是所有"提亮"自动变成"压暗"。
+  验收方式也很直白：`ui_shot.py` 会切到浅色，再检查 `.panel/.card/.topbar/.nav/.btn/.tag`
+  里有没有哪个元素还是深色底。
 - **动效有统一节拍**：动效时长/缓动全部收敛到 `styles.css` 的 `:root` 令牌
   （`--t-fast` 悬停 / `--t-base` 状态切换 / `--t-slow` 面板与进度条 / `--t-pop` 数值跳动），
   没有任何组件再写裸时长——否则同一个"悬停"在按钮上 .15s、在卡片上 .08s，快慢不齐就是
@@ -52,6 +59,10 @@
   底部留了 `env(safe-area-inset-bottom)`，手势条不会压住内容。
 - **版本可核对**：页脚常驻显示 `v0.1.0 · 构建时间 · git 短哈希`。手机上没法强刷，
   这一行就是"更新到底生效没有"的唯一依据；线上有新构建时页面会自己弹「点这里更新」。
+- **存档备份提醒**：手机浏览器（尤其 iOS Safari 的 ITP）可能清理本地存储，
+  连续一段时间没交互就可能被清掉——对放置游戏正好是最容易中的一枪。
+  所以存档超过 6 天没导出就弹一条提示，一键导出 JSON；点「稍后」安静 3 天，
+  新号前 2 天不打扰。导出会记录时间（存档字段 `lastExportAt`，v8 迁移补的默认值）。
 
 > 想看效果不用跑起来：`screenshots/ui-*.png`（桌面逐屏）与 `ui-mobile-*.png`（窄屏）
 > 都是 `tools/ui_shot.py` 自动截的图。
@@ -265,14 +276,14 @@ powershell -File tools/run-tests.ps1 -All -NoBuild -SuiteTimeoutSec 300
 也可以单独跑（需自行先启动 `vite preview`）：
 
 ```powershell
-python tools/smoke_test.py       # 20 项：渲染 / 派遣 / 离线结算 / 收获 / **不丢档** / 存档
+python tools/smoke_test.py       # 26 项：渲染 / 派遣 / 离线结算 / 收获 / **不丢档** / v7→v8 迁移 / 备份提醒
 python tools/cadence_test.py     # 28 项：每日轮盘 / 天书奇谭 / 跨日跨周重置 / 时间边界
 python tools/trial_test.py       # 20 项：破魔试炼 + 难度探针（A/B 两组对照）
 python tools/mastery_test.py     # 17 项：量谱精通（解锁 / 前置 / 属性生效 / 持久化）
 python tools/relic_test.py       # 22 项：幻境武器（接线 / 跨系统门槛 / 替换 / 终阶加成 / 持久化）
 python tools/facility_test.py    # 28 项：工房（产出 / **储存上限** / Groove / 切项目不丢产量 / 扩建 / 开箱）
 python tools/tower_test.py       # 35 项：无尽塔（独立等级 / 软重置 / 休整层 / 层主 / 赛季重置 / 难度探针）
-python tools/ui_shot.py          # 15 项：逐屏截图（screenshots/ui-*.png）+ 导航/tooltip/窄屏/筛选检查
+python tools/ui_shot.py          # 20 项：逐屏截图 + 导航/tooltip/窄屏/筛选 + **深浅主题两套截图**
 python tools/ui_flow_test.py     # 22 项：⭐ **纯点击驱动**的可玩性测试（防止"逻辑对但界面接不上"）
 python tools/pages_test.py       # 13 项：⭐ **按 GitHub Pages 的子路径形态**真起服务器跑一遍
 python tools/balance_test.py     # 6 项：数值平衡（**有断言**：第 1 个本必通、无空返回、无超 300s）
@@ -322,7 +333,7 @@ Brayflox      (Lv32)  败  ——    团灭
 
 ---
 
-## 七、踩过的坑（值得记住的 12 个）
+## 七、踩过的坑（值得记住的 14 个）
 
 ### 1. ⚠️ 摘要把"共享引用"误判成环 → 打完副本就静默丢档
 
@@ -517,6 +528,30 @@ headless Chrome，压力大时更容易出现），重跑同一个套件就过�
 
 > 反过来也提醒一句：看到"重试成功"的日志时不要当成没事。同一个探针反复抖动，
 > 说明环境有问题（内存、并发起的浏览器数），该治的是环境。
+
+### 13. ⚠️ 往 `.ps1` 里写中文注释，把整个脚本写坏了
+
+`run-tests.ps1` 开头就写着"ASCII-only on purpose"，我还是往里加了几行中文注释。
+PowerShell 5.1 按 GBK 解 UTF-8 字节，某些多字节序列会解出 `"` 或 `\` 这类字符，
+于是**脚本直接解析失败**：
+
+```
+Unexpected token '${status}' in expression or statement.
+Missing closing '}' in statement or block.
+```
+
+看起来像语法错误，其实是编码问题——这类错误特别容易让人去改语法，越改越乱。
+规矺：**`.ps1` / `.bat` 永远纯 ASCII**，中文输出一律交给 Python 打印（Python 源文件是 UTF-8）。
+顺带一个同类坑：`"$status(retry)"` 在 PowerShell 里会被当成表达式，必须写 `"${status}(retry)"`。
+
+### 14. 浏览器套件偶发卡死：超时 + 重试一次，但必须打印
+
+`balance_test` 出现过两次"渲染进程卡住、`page.evaluate` 永远不返回"（0 CPU，两边都闲着）。
+现在三层处理：套件内 `page.set_default_timeout(20000)` 让调用报错而不是干等；
+运行器每套件 180s 超时；`TIMEOUT`/`CRASH` 自动**重试一次**并记 `PASS(retry)`、
+在汇总里打印 NOTE。`FAIL`（断言真的没过）不重试——重试一次也不会变绿。
+
+> 这条策略的边界要清楚：**允许偶发抖动，但不许它安静地发生。**
 
 ---
 

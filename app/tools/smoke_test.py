@@ -162,6 +162,56 @@ def main() -> int:
         saved = page.evaluate("!!localStorage.getItem('ff14idle.save')")
         check("存档已写入 localStorage", saved)
 
+        # 6) v7 老档迁移到 v8：新增的 lastExportAt 要补上默认值，且**不能丢档**
+        #    这是"改了存档结构必须加迁移"这条规矩的守门测试。
+        older = page.evaluate(
+            """() => {
+                const raw = JSON.parse(localStorage.getItem('ff14idle.save'));
+                raw.version = 7;
+                delete raw.lastExportAt;
+                // 摘要按老版本算，这里直接清掉，模拟"旧版本写出来的档"
+                raw.integrity = { seq: 0, digest: '' };
+                localStorage.setItem('ff14idle.save', JSON.stringify(raw));
+                localStorage.removeItem('ff14idle.backupSnooze');
+                return { gold: raw.gold, members: raw.members.length };
+            }"""
+        )
+        page.reload(wait_until="networkidle")
+        page.wait_for_timeout(900)
+        migrated = page.evaluate(
+            """() => {
+                const st = window.__FF14IDLE__.store.require();
+                return { version: st.version, lastExportAt: st.lastExportAt,
+                         gold: st.gold, members: st.members.length };
+            }"""
+        )
+        check("v7 老档能迁移到当前版本", migrated["version"] >= 8, str(migrated["version"]))
+        check("迁移补上了 lastExportAt 默认值", migrated["lastExportAt"] == 0, str(migrated["lastExportAt"]))
+        check("迁移没有丢档", migrated["gold"] == older["gold"] and migrated["members"] == older["members"],
+              f"{older} -> {migrated}")
+
+        # 7) 备份提醒：把存档做旧，应该弹出"该导出存档了"，点导出后记录时间
+        page.evaluate(
+            """() => {
+                const api = window.__FF14IDLE__;
+                const st = api.store.require();
+                st.createdAt = Date.now() - 30 * 86400000;   // 号开了 30 天
+                st.lastExportAt = 0;                          // 一次都没导过
+                localStorage.removeItem('ff14idle.backupSnooze');
+                api.save();
+            }"""
+        )
+        page.reload(wait_until="networkidle")
+        page.wait_for_timeout(2200)      # 提醒是延迟 1.2s 弹的
+        check("长期没导存档时会提醒", count_of(page, ".notice-pill--backup") == 1)
+        page.screenshot(path=str(OUT / "12-backup-reminder.png"), full_page=False)
+        if count_of(page, ".notice-pill--backup") == 1:
+            page.locator("[data-backup='now']").click()
+            page.wait_for_timeout(500)
+            after_export = page.evaluate("() => window.__FF14IDLE__.store.require().lastExportAt")
+            check("导出后记录了导出时间", after_export > 0, str(after_export))
+            check("导出后提醒消失", count_of(page, ".notice-pill--backup") == 0)
+
         browser.close()
 
     failed = [r for r in results if not r[1]]

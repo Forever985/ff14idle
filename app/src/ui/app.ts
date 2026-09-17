@@ -63,6 +63,8 @@ import { store } from '../core/store';
 import type { Expedition, GameState, ItemDef, JobId, MemberState, TrialRun } from '../types';
 import { flash } from './toast';
 import { icon, jobIconName, nodeIconName, roleIconName, slotIconName, type IconName } from './icons';
+import { currentTheme, themeLabel, toggleTheme } from './theme';
+import { exportNow } from './backup';
 import { singleFileUrl, versionLabel } from './version';
 
 type TabId = 'dispatch' | 'trial' | 'tower' | 'party' | 'inventory' | 'cadence' | 'relic' | 'facility' | 'report';
@@ -406,14 +408,12 @@ const ACTIONS: Record<string, (el: HTMLElement, ev: Event) => void> = {
     flash(ok ? '已存档' : '存档失败（浏览器禁用本地存储）');
   },
 
-  'export': () => {
-    const state = store.require();
-    const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `ff14idle-save-${new Date().toISOString().slice(0, 10)}.json`;
-    a.click();
-    URL.revokeObjectURL(a.href);
+  'export': () => exportNow(),
+
+  'toggle-theme': () => {
+    const next = toggleTheme();
+    flash(next === 'light' ? '已切到浅色主题' : '已切到深色主题');
+    render();
   },
 };
 
@@ -459,6 +459,9 @@ function renderTopbar(state: GameState): string {
       ${chip('ready', 'clock', '已经回来、可以收获的派遣', String(p.ready), p.ready > 0 ? 'hot' : 'dim')}
       ${chip('memory', 'memory', `塔之记忆：无尽塔的永久加成（历史最高 ${state.towerBest ?? 0} 层 · 本赛季 ${season} 层）`, `+${memPct}%`, memPct === 0 ? 'dim' : 'good')}
     </div>
+    <button class="theme-toggle" data-action="toggle-theme" data-tip="${esc(themeLabel())}" aria-label="切换深浅主题">
+      ${icon(currentTheme() === 'dark' ? 'sun' : 'moon', 16)}
+    </button>
   </header>`;
 }
 

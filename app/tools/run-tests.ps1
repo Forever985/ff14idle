@@ -86,10 +86,17 @@ Write-Output "preview server http://127.0.0.1:$Port/ ready=$ready"
 
 $results = @()
 $anyFail = $false
+$retried = @()
 try {
   foreach ($t in $Tests) {
-    Write-Output ""
-    Write-Output ("########## {0} ##########" -f $t)
+    # Each suite gets at most 2 attempts: browser suites occasionally deadlock
+    # (Playwright waits on a browser that never comes back, worse when the user's
+    # own Chrome is running). A TIMEOUT/CRASH is retried once -- but the retry is
+    # ALWAYS printed, because a silent retry hides real problems.
+    $status = 'FAIL'
+    foreach ($attempt in 1..2) {
+      Write-Output ""
+      Write-Output ("########## {0} ##########{1}" -f $t, $(if ($attempt -gt 1) { "  (attempt $attempt)" } else { "" }))
 
     # Per-suite timeout. Why: a browser-driven suite can deadlock (Playwright
     # waiting on a browser that never comes back). Without a timeout the runner
@@ -125,24 +132,41 @@ try {
     $proc.Dispose()
     $out | Select-Object -Last 6 | ForEach-Object { "  $_" }
 
-    # 判定方式必须是「退出码 + 文本」双保险：
-    # 曾经只 grep 'FAIL:'，结果**崩溃的套件被误判为通过**——
-    # 脚本崩了就打不出汇总行，自然也就没有 'FAIL:' 可匹配。
+    # The verdict must combine exit code AND text:
+    # grepping only for 'FAIL:' once made CRASHED suites look like passes --
+    # a crashed script prints no summary line, hence no 'FAIL:' to match.
     $failed = ($out | Select-String -Pattern '^\s*FAIL\s' | Measure-Object).Count
     $crashed = ($code -ne 0) -and ($failed -eq 0)
     $status = if (-not $finished) { "TIMEOUT(${SuiteTimeoutSec}s)" } `
       elseif ($code -eq 0 -and $failed -eq 0) { 'PASS' } `
       elseif ($crashed) { "CRASH(exit $code)" } `
       else { "FAIL($failed)" }
+
+      if ($status -eq 'PASS') { break }
+
+      # Only retry the two environment-suspect verdicts. A FAIL means an assertion
+      # really failed; retrying would not turn it green.
+      $retryable = (-not $finished) -or $crashed
+      if ($attempt -lt 2 -and $retryable) {
+        Write-Output ("  !! {0} -> {1} looks like an environment flake; retrying once" -f $t, $status)
+        $retried += $t
+        Start-Sleep -Seconds 3
+        continue
+      }
+      break
+    }
+
     if ($status -ne 'PASS') { $anyFail = $true }
+    if ($retried -contains $t) { $status = "${status}(retry)" }
     $results += [pscustomobject]@{ Suite = $t; Summary = $status }
   }
 } finally {
   if ($server -and -not $server.HasExited) {
     & taskkill.exe /PID $server.Id /T /F 2>&1 | Out-Null
   }
-  # 只清 Playwright 起的临时 profile 浏览器（命令行里带 playwright_chromiumdev）。
-  # 绝不按进程名杀 chrome.exe —— 那会连带杀掉用户自己开着的 Chrome。
+  # Clean up only Playwright's temporary-profile browsers (their command line contains
+  # playwright_chromiumdev). NEVER kill chrome.exe by name -- that would also take down
+  # the browser the user has open.
   $stray = Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" -ErrorAction SilentlyContinue |
     Where-Object { $_.CommandLine -like '*playwright_chromiumdev*' }
   if ($stray) {
@@ -155,6 +179,14 @@ Write-Output ""
 Write-Output "==================== SUMMARY ===================="
 $results | ForEach-Object { "  {0,-20} {1}" -f $_.Suite, $_.Summary }
 Write-Output ""
+if ($retried.Count -gt 0) {
+  Write-Output "NOTE: these suites failed once on an environment flake and only passed"
+  Write-Output "      on retry:"
+  Write-Output ("      {0}" -f ($retried -join ', '))
+  Write-Output "      Once in a while is fine. If it happens every run, the machine"
+  Write-Output "      is the problem (memory / leftover browsers) -- do not ignore it."
+  Write-Output ""
+}
 if ($anyFail) {
   Write-Output "RESULT: FAILED"
   exit 1

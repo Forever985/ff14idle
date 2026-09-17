@@ -221,6 +221,17 @@ export function migrate(raw: unknown): { state: GameState; changed: boolean } | 
     changed = true;
   }
 
+  if (version < 8) {
+    // v8：记录"上次导出存档的时间"，用于备份提醒（手机端本地存储有被清理的风险）。
+    // 老档没导过，就是 0；随手补上即可。这就是"改了存档结构必须加迁移"的实例。
+    if (s.lastExportAt === undefined) {
+      s.lastExportAt = 0;
+      changed = true;
+    }
+    s.version = 8;
+    changed = true;
+  }
+
   return { state: s as GameState, changed };
 }
 
