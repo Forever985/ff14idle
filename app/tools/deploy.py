@@ -236,12 +236,37 @@ def wipe_git(path: Path) -> None:
         die(f"{git_dir} 仍然存在，请手动删除后重试。")
 
 
-def commit_source(env: dict, attempts: int = 3) -> None:
+def sync_with_remote(env: dict, remote: str) -> None:
+    """把远端 main 接成我们这次提交的**父提交**，避免历史分叉。
+
+    为什么必须做：本机的 git 偶尔会把对象写坏，修法是"删掉 .git 重新提交"。
+    但重建之后本地是一个**全新的根提交**，而远端 main 上已经有上一次的提交 ——
+    两者没有共同祖先，推送就会被拒（non-fast-forward）。
+    症状是"第一次发布成功、第二次怎么说都不让推"，非常莫名其妙。
+
+    所以每次提交之前先 fetch 一次：如果远端那条提交还不在本地历史里，
+    就把本地分支指到它，然后在其之上提交。这样推送永远是快进，
+    而且**不会丢掉远端已有的历史**（比上来就 --force 安全得多）。
+    """
+    code, out = run_git(REPO, env, ["fetch", remote, SOURCE_BRANCH])
+    if code != 0:
+        # 远端还没有这个分支（首次发布）或者网络不通 —— 都不是错误，继续即可
+        first = any(k in out for k in ("couldn't find remote ref", "not found", "does not exist"))
+        if not first:
+            say("  （连不上远端，跳过历史同步；如果推送被拒会提示）")
+        return
+    ancestor, _ = run_git(REPO, env, ["merge-base", "--is-ancestor", "FETCH_HEAD", "HEAD"])
+    if ancestor == 0:
+        return  # 远端提交已经在本地历史里，无需处理
+    say("  远端 main 上有本地没有的提交，先把它接上（避免推送被拒）…")
+    run_git(REPO, env, ["update-ref", f"refs/heads/{SOURCE_BRANCH}", "FETCH_HEAD"])
+
+
+def commit_source(env: dict, remote: str, attempts: int = 3) -> None:
     """把源码提交到本地仓库；**提交后必须校验**，坏了就重建。
 
     为什么要重建而不是修：源码的每一个字节都在工作区里，`.git` 只是派生数据。
     所以"删掉 .git 重来一遍"是最简单、也最不可能留下隐患的修法。
-    仓库里只有 1 条提交（每次都是），重建不损失任何历史。
     """
     author, mail = resolve_author(env)
     say(f"  提交署名：{author} <{mail}>")
@@ -250,6 +275,8 @@ def commit_source(env: dict, attempts: int = 3) -> None:
             wipe_git(REPO)
         if not (REPO / ".git").exists():
             git(["init", "-b", SOURCE_BRANCH], REPO, env)
+        # 先接上远端历史，再在其之上提交（重建过的仓库尤其需要）
+        sync_with_remote(env, remote)
         # 这几步都可能因为对象写坏而失败，所以用 run_git 拿退出码，自己决定要不要重来
         run_git(REPO, env, ["add", "-A"])
         staged = run_git(REPO, env, ["diff", "--cached", "--name-only"])[1].strip()
@@ -276,15 +303,22 @@ def commit_source(env: dict, attempts: int = 3) -> None:
 
 
 def git_push(cwd: Path, env: dict, remote: str, refspec: str, expect_sha: str = "",
-             attempts: int = 3) -> None:
+             attempts: int = 3, force: bool = False) -> None:
     """推送并**验证远端真的收到了**。
 
     为什么要重试 + 校验：实测遇到过一次推送假成功/半途损坏
     （远端 index-pack 报 inflate 错误），重推即好。一键发布的脚本不能有
     "偶发失败"，所以这里失败就重试，推完再用 ls-remote 核对提交号。
+
+    `force=True` 只给 gh-pages 用：那个分支每次都是"从零重建 + 一条提交"，
+    和远端已有的那条提交之间**没有共同祖先**，永远不可能快进。
+    （这个 `-f` 曾在重构时被我漏掉，症状是"第一次发布成功，第二次怎么都推不上去、
+    报 non-fast-forward"——排查时特别容易怀疑到权限或网络上去。）
     """
-    cmd = ["git", "-c", "safe.directory=*", "-c", "core.fsync=all", "-c", "pack.threads=1",
-           "push", remote, refspec]
+    cmd = ["git", *GIT_FLAGS, "push"]
+    if force:
+        cmd.append("-f")
+    cmd += [remote, refspec]
     for attempt in range(1, attempts + 1):
         code, out = run_soft(cmd, cwd, env)
         if code == 0:
@@ -293,6 +327,12 @@ def git_push(cwd: Path, env: dict, remote: str, refspec: str, expect_sha: str = 
         tail = "\n".join(out.strip().splitlines()[-4:])
         if tail:
             say("    " + tail.replace("\n", "\n    "))
+        rejected = "non-fast-forward" in out or "fetch first" in out or "rejected" in out
+        if rejected and not force and attempt == attempts:
+            die("远端分支上有你本地没有的提交（多半是在网页上直接改过文件）。\n"
+                "    为了不覆盖你的改动，脚本不会强行推送。两个选择：\n"
+                "      1) 先把远端的改动拉到本地： git pull --rebase\n"
+                "      2) 如果远端那些改动你不要了： git push -f origin main")
         if attempt == attempts:
             die(f"推送连续失败 {attempts} 次，请检查网络与仓库权限。")
         time.sleep(2)
@@ -442,7 +482,7 @@ def ask_remote(cli_remote: str = "") -> str:
 
 def push_source(env: dict, remote: str) -> None:
     """源码推到 main：以后换电脑、或者想回滚，都靠它"""
-    commit_source(env)
+    commit_source(env, remote)
     remotes = git(["remote"], REPO, env, capture=True).split()
     if "origin" not in remotes:
         git(["remote", "add", "origin", remote], REPO, env)
@@ -481,7 +521,8 @@ def push_site(site: Path, env: dict, remote: str, message: str) -> None:
         git(["remote", "add", "origin", remote], work, env)
         say(f"  正在推送产物到 {PUBLISH_BRANCH} …")
         sha = git(["rev-parse", "HEAD"], work, env, capture=True).strip()
-        git_push(work, env, "origin", f"{PUBLISH_BRANCH}:{PUBLISH_BRANCH}", expect_sha=sha)
+        git_push(work, env, "origin", f"{PUBLISH_BRANCH}:{PUBLISH_BRANCH}",
+                 expect_sha=sha, force=True)
         shutil.rmtree(work, ignore_errors=True)
         return
     die("产物仓库连续 3 次写坏，没能发布。可以重跑一次；持续出现请检查磁盘与杀毒软件。")
