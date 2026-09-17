@@ -665,7 +665,12 @@ h1 { font-size: 22px; color: var(--gold); letter-spacing: 1px; }
    手机上没法强刷、也不会主动翻设置，所以必须把动作直接递到手上。 */
 .notice-pill,
 .update-pill {
-  position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+  /* 水平居中**不用 transform**：这个元素套了 panel-in 动画，而它的结束关键帧是
+     `transform: none`，配合 animation-fill-mode: both 会把元素自己的
+     translateX(-50%) 覆盖掉 —— 结果胶囊一直贴右边、手机上"稍后"按钮还被裁掉。
+     用 left/right + margin auto + fit-content 居中就不会和动画打架。 */
+  position: fixed; left: 0; right: 0; margin-inline: auto; width: fit-content;
+  bottom: 18px; max-width: 92vw;
   display: flex; align-items: center; gap: 8px;
   background: linear-gradient(180deg, var(--pill-from), var(--pill-to));
   border: 1px solid var(--gold-dim); color: var(--gold);
@@ -700,10 +705,18 @@ h1 { font-size: 22px; color: var(--gold); letter-spacing: 1px; }
 }
 .notice-act--ghost:hover { color: var(--text); }
 @media (max-width: 640px) {
+  /* 窄屏上必须允许换行：文案 + 两个按钮横着排会顶出屏幕，
+     "稍后"按钮被裁掉一半 —— 这是真机截图里发现的。 */
   .notice-pill,
-  .update-pill { bottom: 10px; padding: 7px 13px; font-size: 12px; max-width: 92vw; }
+  .update-pill {
+    bottom: 10px; padding: 8px 13px; font-size: 12px; max-width: 92vw;
+    flex-wrap: wrap; justify-content: center; row-gap: 6px;
+  }
   .notice-pill small,
   .update-pill small { display: none; }
+  /* 文案占满一行，按钮落到第二行 */
+  .notice-pill > span:not(.notice-dot),
+  .update-pill > span:not(.update-pill-dot) { flex: 1 1 100%; min-width: 0; }
 }
 
 /* 顶栏的主题切换：一个安静的小圆钮，不跟资源数字抢视线 */

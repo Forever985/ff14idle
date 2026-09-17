@@ -204,6 +204,18 @@ def main() -> int:
         page.reload(wait_until="networkidle")
         page.wait_for_timeout(2200)      # 提醒是延迟 1.2s 弹的
         check("长期没导存档时会提醒", count_of(page, ".notice-pill--backup") == 1)
+        # 居中回归：胶囊套了入场动画，而动画结束帧是 transform: none，
+        # 曾经把元素自己的 translateX(-50%) 覆盖掉 → 胶囊贴右边、手机上按钮被裁掉。
+        offset = page.evaluate(
+            """() => {
+                const el = document.querySelector('.notice-pill--backup');
+                if (!el) return 999;
+                const r = el.getBoundingClientRect();
+                const vw = document.documentElement.clientWidth;
+                return Math.abs((r.left + r.right) / 2 - vw / 2);
+            }"""
+        )
+        check("提示条水平居中且不出屏", offset <= 2, f"偏离中心 {offset:.0f}px")
         page.screenshot(path=str(OUT / "12-backup-reminder.png"), full_page=False)
         if count_of(page, ".notice-pill--backup") == 1:
             page.locator("[data-backup='now']").click()

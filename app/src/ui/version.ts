@@ -41,8 +41,8 @@ function showUpdatePill(serverBuild: string): void {
   pill.className = 'update-pill';
   pill.dataset.serverBuild = serverBuild;
   pill.innerHTML =
-    '<span class="update-pill-dot"></span>有新版本，点这里更新' +
-    `<small>本机 ${APP_BUILD} → 线上 ${serverBuild}</small>`;
+    '<span class="update-pill-dot"></span>' +
+    `<span>有新版本，点这里更新<small>本机 ${APP_BUILD} → 线上 ${serverBuild}</small></span>`;
   pill.addEventListener('click', () => {
     // 关键：带上时间戳跳转。直接 location.reload() 有可能拿到 Pages 缓存里的旧 HTML，
     // 于是"点了没反应"。换一个 URL 才能保证重新拉一次文档。
