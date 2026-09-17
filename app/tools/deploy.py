@@ -334,8 +334,15 @@ def git_push(cwd: Path, env: dict, remote: str, refspec: str, expect_sha: str = 
                 "      1) 先把远端的改动拉到本地： git pull --rebase\n"
                 "      2) 如果远端那些改动你不要了： git push -f origin main")
         if attempt == attempts:
+            net = any(k in out for k in ("Could not connect", "Connection was reset",
+                                         "Failed to connect", "timed out", "Recv failure"))
+            if net:
+                die("连不上 github.com（网络问题，不是仓库权限）。\n"
+                    "    本地该提交的都已经提交好了，**什么都没丢**。\n"
+                    "    等网络恢复后再双击一次 一键发布.bat 就行，会接着往下走。")
             die(f"推送连续失败 {attempts} 次，请检查网络与仓库权限。")
-        time.sleep(2)
+        # 网络抖动时 2 秒太短了（国内连 GitHub 常见几秒到几十秒的连接失败），逐次拉长
+        time.sleep(2 * attempt)
     if expect_sha:
         code, out = run_soft(
             ["git", "-c", "safe.directory=*", "ls-remote", remote, refspec.split(":")[-1]],
