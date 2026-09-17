@@ -303,6 +303,23 @@ def main() -> int:
               all(x["ok"] for x in stats) and all(x["hp"] > 0 for x in stats),
               str(stats[:2]))
 
+        # 12) 手机上的名册页不能长到没法用
+        #     名册能到十几号人，成员详情卡全部展开时这一页会飙到 4000px 以上 —— 真机实测过。
+        #     现在：详情卡折起来、手机上总览表禁止换行。这里守住这个结果。
+        mobile = browser.new_page(viewport={"width": 420, "height": 900})
+        mobile.goto(URL, wait_until="networkidle")
+        mobile.wait_for_timeout(900)
+        mobile.locator("[data-action='tab'][data-tab='party']").click()
+        mobile.wait_for_timeout(600)
+        mh = mobile.evaluate("() => document.body.scrollHeight")
+        check("手机 420px 下队伍页高度可控（< 2400px）", mh < 2400, f"{mh}px")
+        overflow = mobile.evaluate(
+            "() => document.documentElement.scrollWidth - document.documentElement.clientWidth"
+        )
+        check("手机上队伍页无横向溢出", overflow <= 2, f"{overflow}px")
+        mobile.screenshot(path=str(OUT / "14-party-mobile.png"), full_page=False)
+        mobile.close()
+
         check("全程无 JS 错误", len(errors) == 0, "; ".join(errors[:2])[:180])
         browser.close()
 

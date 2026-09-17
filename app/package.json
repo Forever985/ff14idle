@@ -1,7 +1,7 @@
 {
   "name": "ff14-idle",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.3.1",
   "type": "module",
   "description": "艾欧泽亚放置 / FF14 Idle — 非商业同人放置游戏",
   "scripts": {

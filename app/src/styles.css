@@ -897,4 +897,20 @@ h1 { font-size: 22px; color: var(--gold); letter-spacing: 1px; }
 @media (max-width: 640px) {
   #app { padding: 8px; }
   .grid-members, .grid-dungeons { grid-template-columns: 1fr; }
+
+  /* 手机上把总览表压扁：原来一列内容会换行，行高被撑到 140px，
+     6 个人就是 840px。禁止换行 + 收紧留白之后行高回到 40px 上下，
+     代价是表格要横向滚动 —— 而横向滚动本来就是 .table-wrap 的职责。 */
+  .ov-table th, .ov-table td { padding: 3px 6px; font-size: 11px; white-space: nowrap; }
+  .ov-table .ov-name { max-width: 92px; overflow: hidden; text-overflow: ellipsis; }
+  .ov-table .ov-act { padding-left: 0; }
+  .ov-table .ov-act .btn { padding: 3px 7px; font-size: 11px; }
+  .ov-table .ov-exp .bar { min-width: 46px !important; }
+  .ov-table .bar.exp { height: 5px; }
+
+  /* 酒馆卡片与折叠行也收紧一点 */
+  .hire-grid { grid-template-columns: 1fr; }
+  .hire-card { padding: 8px 10px; gap: 4px; }
+  .member-detail > summary { padding: 9px 12px; }
+  .member-body { padding: 10px 12px 14px; }
 }
