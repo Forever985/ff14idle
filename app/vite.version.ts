@@ -31,14 +31,18 @@ export interface AppVersion {
 
 function gitShortHash(): string {
   try {
-    return execFileSync('git', ['rev-parse', '--short', 'HEAD'], {
+    // 必须带 safe.directory：仓库属主和当前用户不一致时（目录由管理员创建就会这样），
+    // git 会以 `detected dubious ownership` 拒绝执行，于是这里静默拿到空字符串，
+    // 页脚就少了一段提交号 —— 不报错，但信息没了。
+    return execFileSync('git', ['-c', 'safe.directory=*', 'rev-parse', '--short', 'HEAD'], {
       cwd: here,
       stdio: ['ignore', 'pipe', 'ignore'],
     })
       .toString()
       .trim();
   } catch {
-    // 没装 git / 还不是仓库 / 沙箱里没有 git —— 都只是少一个信息，不该让构建失败
+    // 没装 git / 还不是仓库 / 沙箱里没有 git —— 都只是少一个信息，不该让构建失败。
+    // 注意：**第一次发布**时这里一定是空的，因为构建发生在 git init 之前。
     return '';
   }
 }
