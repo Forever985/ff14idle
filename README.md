@@ -11,13 +11,20 @@
 
 ## 🎮 想直接玩？先看这里
 
-**手机上玩 / 发给朋友**：部署到 GitHub Pages 之后，地址是
-`https://<你的用户名>.github.io/ff14-idle/` —— 打开就能玩，存档存在浏览器本地。
-完整步骤见 **[`docs/12-deploy-and-release.md`](docs/12-deploy-and-release.md)**，一句话版本：
+**手机上玩 / 发给朋友**：已经部署好了 👉
+
+| | |
+| --- | --- |
+| 在线玩 | **<https://forever985.github.io/ff14idle/>** |
+| 单文件版下载 | <https://forever985.github.io/ff14idle/ff14-idle-single.html> |
+| 仓库 | <https://github.com/Forever985/ff14idle> |
+
+打开就能玩，存档存在浏览器本地（`localStorage`）；手机上用浏览器的「添加到主屏幕」
+可以装成 App。完整步骤与注意事项见 **[`docs/12-deploy-and-release.md`](docs/12-deploy-and-release.md)**，
+一句话版本：
 
 ```
-在 GitHub 建一个 Public 空仓库 → 双击 一键发布.bat → 仓库 Settings → Pages
-把 Source 设成 gh-pages 分支（只设置这一次）→ 之后每次更新都只是"双击一下"
+改完代码 → 双击 一键发布.bat → 手机上刷新（页面会自己提示有新版本）
 ```
 
 ```powershell

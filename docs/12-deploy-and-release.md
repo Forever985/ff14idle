@@ -3,6 +3,18 @@
 > 面向的是"我自己要更新一版，然后手机上能玩到"这件事。
 > 全流程只有一步：**双击 `一键发布.bat`**。
 
+## 📍 本项目的实际状态（2026-09-17）
+
+| | |
+| --- | --- |
+| 仓库 | <https://github.com/Forever985/ff14idle> |
+| 网址 | <https://forever985.github.io/ff14idle/> |
+| 单文件版 | <https://forever985.github.io/ff14idle/ff14-idle-single.html> |
+| 分支 | `main` = 源码（140 个文件）／ `gh-pages` = 构建产物 |
+| 仓库地址 | 已记在 `.deploy.json` 里，**以后双击不会再问你** |
+| 提交署名 | 自动取本机的 `git config user.name/user.email`（当前是 `Forever985 <184053786@qq.com>`） |
+| 👉 还差一步 | 仓库 **Settings → Pages** 把 Source 设成 `gh-pages` 分支 / `(root)`，见下面第二节 |
+
 ---
 
 ## 一、先回答那个最要紧的问题：仓库该叫什么名字
@@ -14,13 +26,15 @@ https://<你的用户名>.github.io/<仓库名>/
 ```
 
 只要仓库名是合法的（字母、数字、`-`、`_`、`.`），任何名字都能做静态站，**不需要为了部署改任何配置**。
-本项目所有资源引用都是相对路径（`vite` 的 `base: './'`），放在子路径下和放在根目录下都能跑。
+本项目所有资源引用都是相对路径（`vite` 的 `base: './'`），放在子路径下和放在根目录下都能跑
+——而且这件事有测试守着：`app/tools/pages_test.py` 就是专门按 `/ff14-idle/` 这种子路径
+起服务器跑一遍的。
 
 两个建议：
 
 | 情况 | 建议 |
 | --- | --- |
-| 一般情况 | 叫 `ff14-idle`，地址就是 `https://<用户名>.github.io/ff14-idle/` |
+| 一般情况 | 像本项目这样叫 `ff14idle`，地址就是 `https://<用户名>.github.io/ff14idle/` |
 | 想让地址没有仓库名（`https://<用户名>.github.io/`） | 仓库必须**恰好**叫 `<你的用户名>.github.io`。一般不必要 |
 
 其他要点：
@@ -28,6 +42,8 @@ https://<你的用户名>.github.io/<仓库名>/
 - **必须是 Public**。私有仓库要用 GitHub Pages 得付费（GitHub Pro 及以上）。
 - 仓库建成**空的**就行（不要勾 README / .gitignore / license），否则第一次推源码会冲突。
 - 仓库名和游戏标题无关；游戏标题写在 `app/index.html` 与 `app/public/manifest.webmanifest` 里。
+- 提交署名用的是**你这台机器上已经配好的 git 身份**，脚本不会硬写一个名字进去。
+  想换：`git config --global user.name "..."` / `git config --global user.email "..."`。
 
 ---
 
@@ -44,10 +60,13 @@ https://<你的用户名>.github.io/<仓库名>/
    - **Source** 选 `Deploy from a branch`
    - **Branch** 选 `gh-pages`，目录选 `/ (root)`
    - Save
-4. 等 1–2 分钟，打开 `https://你的用户名.github.io/ff14-idle/`。
+4. 等 1–2 分钟，打开 `https://你的用户名.github.io/你的仓库名/`。
 
 > 第 3 步必须做一次：GitHub 不会自动知道要发布 `gh-pages` 分支。
 > 之后再发版就**只需要双击**，不需要再碰设置。
+>
+> 判断这一步做完没有，最快的办法是直接访问那个网址：
+> **404 = 还没设置**（或者刚设置完还在构建，等 1–2 分钟）；**能打开 = 已经生效**。
 
 ---
 
@@ -81,7 +100,7 @@ python tools/deploy.py --remote https://github.com/名字/仓库.git   # 换仓�
 
 ## 四、手机怎么玩
 
-1. 手机浏览器打开 `https://你的用户名.github.io/ff14-idle/`
+1. 手机浏览器打开 `https://forever985.github.io/ff14idle/`
 2. **iPhone（Safari）**：底部分享 → 「添加到主屏幕」
    **Android（Chrome）**：右上菜单 → 「添加到主屏幕 / 安装应用」
 3. 从主屏图标点开就是全屏、没有地址栏，和装了个 App 差不多。
