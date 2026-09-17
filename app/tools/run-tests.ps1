@@ -29,7 +29,7 @@ $appDir = Split-Path -Parent $PSScriptRoot
 Set-Location $appDir
 
 $py = 'C:\Users\18405\AppData\Local\Programs\Python\Python310\python.exe'
-$suites = @('smoke_test', 'cadence_test', 'trial_test', 'mastery_test', 'relic_test', 'facility_test', 'tower_test', 'ui_flow_test', 'ui_shot', 'singlefile_test', 'pages_test', 'balance_test')
+$suites = @('smoke_test', 'cadence_test', 'trial_test', 'mastery_test', 'relic_test', 'facility_test', 'tower_test', 'tavern_test', 'ui_flow_test', 'ui_shot', 'singlefile_test', 'pages_test', 'balance_test')
 # Accept both "-Tests a,b" (single string) and "-Tests a b" (array)
 $Tests = @($Tests | ForEach-Object { $_ -split ',' } | Where-Object { $_ -ne '' })
 if ($All -or $Tests.Count -eq 0) { $Tests = $suites }

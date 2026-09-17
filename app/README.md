@@ -128,7 +128,8 @@ Pages 的一次性设置、版本号提示更新的机制、以及存档在 iPho
 
 | 系统 | 状态 | 说明 |
 | --- | --- | --- |
-| **拂晓伙伴** | ✅ | 6 名可用（桑克雷德/雅·修特拉/阿莉塞/阿尔菲诺/古·拉哈·提亚/光之战士），后续章节解锁更多 |
+| **拂晓伙伴** | ✅ | **18 名名角**（剧情人物）：主线章节 + 关键里程碑解锁；**不带专属机制与数值特权** |
+| **酒馆与名册** | ✅ | 每天 3 个候选、每日免费刷新 1 次、可付费重 roll；佣兵**有稀有度**（只影响资质）；名册上限 12 起、靠章节与工房扩张；辞退需二次确认 |
 | **职业** | ✅ | 首批 8 个第一梯队职业（WAR/WHM/BLM/MCH/SMN/RDM/SGE/BST），各带资源池与爆发窗口 |
 | **副本** | ✅ | 第 1–3 章共 **64 个 4 人本**，从 `data/content-plan.csv` 生成，链式解锁 |
 | **派遣（放置核心）** | ✅ | 派遣即结算 + 时间戳状态机；**关掉页面也会继续，重开自动结算** |
@@ -283,8 +284,9 @@ python tools/mastery_test.py     # 17 项：量谱精通（解锁 / 前置 / 属
 python tools/relic_test.py       # 22 项：幻境武器（接线 / 跨系统门槛 / 替换 / 终阶加成 / 持久化）
 python tools/facility_test.py    # 28 项：工房（产出 / **储存上限** / Groove / 切项目不丢产量 / 扩建 / 开箱）
 python tools/tower_test.py       # 35 项：无尽塔（独立等级 / 软重置 / 休整层 / 层主 / 赛季重置 / 难度探针）
+python tools/tavern_test.py      # 38 项：⭐ 名册与酒馆（雇佣 / 稀有度资质 / 上限 / 辞退 / 里程碑解锁 / v8→v9 迁移）
 python tools/ui_shot.py          # 20 项：逐屏截图 + 导航/tooltip/窄屏/筛选 + **深浅主题两套截图**
-python tools/ui_flow_test.py     # 22 项：⭐ **纯点击驱动**的可玩性测试（防止"逻辑对但界面接不上"）
+python tools/ui_flow_test.py     # 30 项：⭐ **纯点击驱动**的可玩性测试（防止"逻辑对但界面接不上"）
 python tools/pages_test.py       # 13 项：⭐ **按 GitHub Pages 的子路径形态**真起服务器跑一遍
 python tools/balance_test.py     # 6 项：数值平衡（**有断言**：第 1 个本必通、无空返回、无超 300s）
 python tools/singlefile_test.py  # 10 项：file:// 双击即玩（含"运行期零外部请求"的行为断言）
@@ -294,7 +296,7 @@ python tools/singlefile_test.py  # 10 项：file:// 双击即玩（含"运行期
 GitHub Pages 上就是子路径，而绝对路径引用、manifest 的 `start_url`、`fetch('./version.json')`
 这些地方恰恰是"本地全对、上线全废"的重灾区，而且只有部署完才会发现、手机上还不好排查。
 
-当前状态：**12 个测试套件全部通过**，运行器会打印 `RESULT: ALL PASS` 并以退出码 0/1 反映结果。
+当前状态：**13 个测试套件全部通过**，运行器会打印 `RESULT: ALL PASS` 并以退出码 0/1 反映结果。
 （判 PASS 的条件是「退出码为 0」且「输出里没有 `FAIL` 行」——只 grep 文本会把崩溃的套件当成通过。）
 
 **副本平衡基线**（第 1 章，15 级无装备队伍）：
@@ -563,15 +565,15 @@ app/
 │   ├── types.ts            全局类型（单一真相）
 │   ├── vite-env.d.ts       构建期注入常量（版本/构建时间/提交号）的类型声明
 │   ├── core/               rng（可复现随机）/ save（校验+备份+迁移）/ store（状态+1Hz）
-│   ├── data/               jobs / companions / dungeons(生成) / items / levels
-│   ├── game/               state（新档+解锁链）/ member（属性）/ expedition（派遣状态机）/ goals
+│   ├── data/               jobs / companions(名角) / hires(佣兵名字与稀有度) / dungeons / items / levels
+│   ├── game/               state（新档+解锁链）/ member（属性）/ tavern（名册与酒馆）/ expedition / goals
 │   ├── sim/combat.ts       战斗内核（L2 抽象）
 │   ├── ui/                 app（渲染 + ACTIONS 映射表）/ toast / icons / version（版本+更新探测）
 │   ├── styles.css          设计令牌（配色 + 动效时序）
 │   └── main.ts             入口
 ├── public/                 图标与 manifest（由 tools/gen-icons.py 从 icon.svg 生成 PNG）
 ├── vite.version.ts         构建期版本信息：注入常量 + 产出 version.json
-├── tools/                  生成器 + 12 个测试脚本 + deploy.py + run-tests.ps1
+├── tools/                  生成器 + 13 个测试脚本 + deploy.py + run-tests.ps1（自带服务器/构建闸门/重试）
 └── screenshots/            测试自动截图
 ```
 

@@ -1,33 +1,22 @@
 /**
  * 游戏状态：新档、副本解锁链、结算落地
  */
-import { COMPANIONS } from '../data/companions';
 import { DUNGEONS, DUNGEON_BY_ID } from '../data/dungeons';
-import { expToNext, levelCapFor, START_LEVEL } from '../data/levels';
+import { expToNext, levelCapFor } from '../data/levels';
 import type { DungeonDef, ExpeditionResult, GameState, MemberState } from '../types';
 import { defaultFacility } from './facility';
 import { GOALS } from './goals';
+import { entryLevel, grantCompanions, refreshTavern } from './tavern';
 
-export const SAVE_VERSION = 8;
+export const SAVE_VERSION = 9;
 
 export function newGame(guildName = '拂晓血盟'): GameState {
-  const members: MemberState[] = COMPANIONS.filter((c) => c.unlockChapter <= 1).map((c) => ({
-    id: c.id,
-    defId: c.id,
-    name: c.name,
-    job: c.job,
-    level: START_LEVEL,
-    exp: 0,
-    equipment: {},
-    runs: 0,
-  }));
-
-  return {
+  const state = {
     version: SAVE_VERSION,
     guildName,
     gold: 300,
     chapter: 1,
-    members,
+    members: [] as MemberState[],
     inventory: [],
     expeditions: [],
     cleared: [],
@@ -40,6 +29,7 @@ export function newGame(guildName = '拂晓血盟'): GameState {
     relics: {},
     relicFinalBonus: false,
     facility: defaultFacility(Date.now()),
+    tavern: { dayKey: '', candidates: [], freeUsed: false, paidRolls: 0 },
     tower: null,
     towerMemory: 0,
     towerBest: 0,
@@ -48,7 +38,14 @@ export function newGame(guildName = '拂晓血盟'): GameState {
     lastSeen: Date.now(),
     lastExportAt: 0,
     integrity: { seq: 0, digest: '' },
-  };
+  } as unknown as GameState;
+
+  // 起手名角：拂晓血盟的核心成员（他们是"你自己"和你的伙伴，不属于酒馆）
+  grantCompanions(state);
+  // 新档的起手等级就是第 1 章的等级下限
+  for (const m of state.members) m.level = entryLevel(state);
+  refreshTavern(state, Date.now());
+  return state;
 }
 
 /** 同一章内按等级排序后的副本链 */
@@ -72,6 +69,16 @@ export function isUnlocked(state: GameState, dungeonId: string): boolean {
 
 export function isCleared(state: GameState, dungeonId: string): boolean {
   return state.cleared.includes(dungeonId);
+}
+
+/**
+ * 名角与酒馆的日常维护：跨天换一批候选、把已达成的名角补齐。
+ * 启动时与 1Hz tick 里都会调用（都是幂等的，重复调用没有副作用）。
+ */
+export function refreshRoster(state: GameState, now = Date.now()): string[] {
+  refreshTavern(state, now);
+  // 名角：里程碑达成即到手。这里不做上限检查 —— 名角是奖励，不该被名册上限卡住
+  return grantCompanions(state).map((c) => c.name);
 }
 
 /** 发放经验并按等级上限逐级提升（副本派遣与破魔试炼共用） */
@@ -116,6 +123,9 @@ export function applyResult(
 /**
  * 章节推进：当某章「主线终点副本」被通关后进入下一章。
  * MVP 阶段用「该章最后一个副本通关」作为章节门槛。
+ *
+ * 名角的发放**不在这里**做了：现在统一由 refreshRoster() 按"章节 + 里程碑"判定，
+ * 这样新章节的名角不会和塔/试炼/工房的条件各写一套逻辑。
  */
 export function tryAdvanceChapter(state: GameState): number | null {
   const chain = chapterChain(state.chapter);
@@ -123,21 +133,6 @@ export function tryAdvanceChapter(state: GameState): number | null {
   if (!last || !state.cleared.includes(last.id)) return null;
   if (state.chapter >= GOALS.maxChapter) return null;
   state.chapter += 1;
-  // 解锁新章节的伙伴
-  for (const c of COMPANIONS) {
-    if (c.unlockChapter <= state.chapter && !state.members.some((m) => m.defId === c.id)) {
-      state.members.push({
-        id: c.id,
-        defId: c.id,
-        name: c.name,
-        job: c.job,
-        level: START_LEVEL,
-        exp: 0,
-        equipment: {},
-        runs: 0,
-      });
-    }
-  }
   return state.chapter;
 }
 

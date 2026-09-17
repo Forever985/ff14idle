@@ -45,6 +45,9 @@ export function computeMemberStats(
   const lvHp = 1 + HP_PER_LEVEL * (lv - 1);
   const lvPot = 1 + POTENCY_PER_LEVEL * (lv - 1);
   const mods = masteryMods(unlockedMasteries);
+  // 资质：佣兵的稀有度体现在这里；名角固定 1.0。
+  // 老存档可能没有这个字段（v9 之前的档），兜底成 1，绝不让它变成 NaN。
+  const pot = Number.isFinite(member.potential) && member.potential > 0 ? member.potential : 1;
 
   let bonusHp = 0;
   let bonusPotency = 0;
@@ -55,16 +58,19 @@ export function computeMemberStats(
     bonusHeal += item.stats.healPotency;
   }
 
-  const hp = Math.round((job.base.hp * lvHp + bonusHp) * (1 + mods.hpMult) * (1 + teamBonus.hpMult));
+  const hp = Math.round(
+    (job.base.hp * lvHp + bonusHp) * (1 + mods.hpMult) * (1 + teamBonus.hpMult) * pot,
+  );
   const potency =
     Math.round(
       (job.base.potency * lvPot + bonusPotency) *
         (1 + mods.potencyMult) *
         (1 + teamBonus.potencyMult) *
+        pot *
         10,
     ) / 10;
   const healPotency =
-    Math.round((job.base.healPotency * lvPot + bonusHeal) * (1 + mods.healMult) * 10) / 10;
+    Math.round((job.base.healPotency * lvPot + bonusHeal) * (1 + mods.healMult) * pot * 10) / 10;
 
   return {
     memberId: member.id,

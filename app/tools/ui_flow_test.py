@@ -216,6 +216,57 @@ def main() -> int:
             )
             check("幻境：点「推进」阶数提升", max(stages) > stage_before, f"{stage_before} -> {max(stages)}")
 
+        # ---------------- 酒馆：雇一个人、辞掉一个人（全程点界面） ----------------
+        # 逻辑层的雇佣/辞退已经在 tavern_test 里测过，这里只验"界面接得上"：
+        # 按钮能不能点、点完名册有没有变、二次确认有没有拦住手滑。
+        page.locator("[data-action='tab'][data-tab='party']").click()
+        page.wait_for_timeout(500)
+        rows = page.locator(".ov-table tbody tr").count()
+        cands = page.locator(".hire-card").count()
+        check("名册与酒馆都渲染出来了", rows >= 6 and cands >= 1, f"{rows} 人 / {cands} 候选")
+
+        page.evaluate(
+            "() => { const st = window.__FF14IDLE__.store.require(); st.gold = 50000; window.__FF14IDLE__.store.notify(); }"
+        )
+        page.wait_for_timeout(300)
+        before_n = page.evaluate("() => window.__FF14IDLE__.store.require().members.length")
+        page.locator("[data-action='hire']:not([disabled])").first.click()
+        page.wait_for_timeout(600)
+        after_n = page.evaluate("() => window.__FF14IDLE__.store.require().members.length")
+        check("酒馆：点「雇佣」名册真的多了一个人", after_n == before_n + 1, f"{before_n} -> {after_n}")
+
+        # 辞退要二次确认：第一下只是问，确认了才真的走
+        ask = page.locator("[data-action='dismiss-ask']")
+        check("名册里每行都有「辞退」", ask.count() >= 1, f"{ask.count()} 个")
+        if ask.count() >= 1:
+            ask.first.click()
+            page.wait_for_timeout(350)
+            check("辞退需要二次确认", page.locator("[data-action='dismiss']").count() == 1)
+            n_before = page.evaluate("() => window.__FF14IDLE__.store.require().members.length")
+            page.locator("[data-action='dismiss-cancel']").click()
+            page.wait_for_timeout(350)
+            n_cancel = page.evaluate("() => window.__FF14IDLE__.store.require().members.length")
+            check("点「算了」不会辞退",
+                  n_cancel == n_before and page.locator("[data-action='dismiss']").count() == 0,
+                  f"{n_cancel} 人")
+            page.locator("[data-action='dismiss-ask']").first.click()
+            page.wait_for_timeout(300)
+            page.locator("[data-action='dismiss']").click()
+            page.wait_for_timeout(600)
+            n_after = page.evaluate("() => window.__FF14IDLE__.store.require().members.length")
+            check("确认后真的辞退了", n_after == n_before - 1, f"{n_before} -> {n_after}")
+
+        # 免费刷新按钮：点一下换一批候选
+        free_btn = page.locator("[data-action='reroll-tavern'][data-free='1']")
+        if free_btn.count() == 1 and not free_btn.is_disabled():
+            ids_before = page.evaluate("() => window.__FF14IDLE__.tavern.state().candidates.map(c => c.id)")
+            free_btn.click()
+            page.wait_for_timeout(500)
+            ids_after = page.evaluate("() => window.__FF14IDLE__.tavern.state().candidates.map(c => c.id)")
+            check("酒馆：点「免费刷新」换了一批候选", ids_before != ids_after, f"{ids_before} -> {ids_after}")
+            check("酒馆：刷新后按钮变为已用完",
+                  page.locator("[data-action='reroll-tavern'][data-free='1']").is_disabled())
+
         check("全程无 JS 错误", len(errors) == 0, "; ".join(errors[:2])[:180])
         browser.close()
 

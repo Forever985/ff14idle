@@ -652,6 +652,58 @@ h1 { font-size: 22px; color: var(--gold); letter-spacing: 1px; }
   font-size: 11px; color: var(--muted); line-height: 1.7;
 }
 
+/* ===== 酒馆 / 名册 / 名角图鉴 ===== */
+.tag-named {
+  color: var(--gold); border-color: var(--gold-edge);
+}
+.tag-hire { background: transparent; }
+
+.hire-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px;
+}
+.hire-card {
+  background: var(--panel2); border: 1px solid var(--border); border-left: 4px solid var(--border);
+  border-radius: 10px; padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.hire-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.hire-head b { font-size: 15px; }
+.hire-rarity { font-size: 11px; font-weight: 700; }
+.hire-meta { font-size: 11px; color: var(--muted); display: flex; flex-direction: column; gap: 2px; }
+.hire-card .btn { margin-top: auto; }
+
+.codex-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px;
+}
+.codex-cell {
+  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto;
+  gap: 2px 8px; align-items: center;
+  background: var(--panel2); border: 1px solid var(--border); border-radius: 9px;
+  padding: 8px 10px; opacity: .5;
+}
+.codex-cell.ready { opacity: .85; border-color: var(--gold-dim); }
+.codex-cell.owned { opacity: 1; border-color: var(--gold-dim); background: linear-gradient(180deg, rgb(var(--gold-rgb) / .12), rgb(var(--gold-rgb) / .03)); }
+.codex-ico { grid-row: 1 / span 2; color: var(--muted); }
+.codex-cell.owned .codex-ico { color: var(--gold); }
+.codex-name { font-size: 13px; }
+.codex-how { font-size: 10px; color: var(--muted); line-height: 1.3; }
+.btn-danger { border-color: var(--red-edge); color: var(--red); }
+.btn-danger:hover:not(:disabled) { border-color: var(--red); color: var(--red); }
+
+/* 成员详情用 <details> 收起：名册十几号人时，全展开会让队伍页长到没法用 */
+.member-detail { padding: 0; }
+.member-detail > summary {
+  cursor: pointer; list-style: none; margin: 0; padding: 12px 16px;
+  border-bottom: 1px solid transparent;
+}
+.member-detail > summary::-webkit-details-marker { display: none; }
+.member-detail > summary::after {
+  content: '展开 ▾'; color: var(--muted); font-size: 11px; margin-left: 8px;
+}
+.member-detail[open] > summary { border-bottom-color: var(--border); }
+.member-detail[open] > summary::after { content: '收起 ▴'; }
+.member-body { padding: 12px 16px 16px; }
+
 /* 页脚版本号：手机上"更新到底有没有生效"全靠它 */
 .ver-chip {
   align-self: center; margin-left: auto;

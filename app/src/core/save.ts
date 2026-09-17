@@ -6,6 +6,7 @@
  *  - sequence 序列号是将来云同步的必需品
  *  - 大体积数据（战报日志）不得进主存档
  */
+import { COMPANIONS, COMPANION_BY_ID } from '../data/companions';
 import type { GameState } from '../types';
 import { SAVE_VERSION } from '../game/state';
 
@@ -229,6 +230,40 @@ export function migrate(raw: unknown): { state: GameState; changed: boolean } | 
       changed = true;
     }
     s.version = 8;
+    changed = true;
+  }
+
+  if (version < 9) {
+    // v9：角色系统从"章节自动送人"改成「名角 + 酒馆佣兵」。
+    // 关键点：**老存档里已有的成员一个都不能丢**，而且要正确归类：
+    //   · defId 能在名角表里查到的 → 名角（剧情人物）
+    //   · 查不到的 → 当作佣兵，按名字补一个合理的基础资质
+    // 顺手补上 v9 新增的字段，缺哪个补哪个，避免出现 undefined 让属性算成 NaN。
+    const named = new Set(COMPANIONS.map((c) => c.id));
+    for (const m of s.members ?? []) {
+      const isNamed = named.has(m.defId);
+      if (m.kind === undefined) {
+        m.kind = isNamed ? 'named' : 'hire';
+        changed = true;
+      }
+      if (m.rarity === undefined) {
+        m.rarity = 'common';
+        changed = true;
+      }
+      if (m.race === undefined) {
+        m.race = isNamed ? (COMPANION_BY_ID[m.defId]?.race ?? 'hyur') : 'hyur';
+        changed = true;
+      }
+      if (m.potential === undefined) {
+        m.potential = 1;
+        changed = true;
+      }
+    }
+    if (!s.tavern) {
+      s.tavern = { dayKey: '', candidates: [], freeUsed: false, paidRolls: 0 };
+      changed = true;
+    }
+    s.version = 9;
     changed = true;
   }
 

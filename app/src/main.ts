@@ -9,7 +9,7 @@ import { DUNGEON_BY_ID } from './data/dungeons';
 import { refreshCadence, tailClaimable } from './game/cadence';
 import { refreshExpeditions } from './game/expedition';
 import { computeMemberStats } from './game/member';
-import { findMember, newGame } from './game/state';
+import { findMember, newGame, refreshRoster } from './game/state';
 import { masteryRows, unlockMastery } from './game/mastery';
 import { advanceRelic, relicInfo, relicTeamBonus } from './game/relic';
 import {
@@ -23,6 +23,13 @@ import {
 import { climbTower, retreatTower, startTower } from './game/tower';
 import { abandonTrial, advanceTrial, startTrial } from './game/trial';
 import { resolveExpedition } from './sim/combat';
+import {
+  companionStatus,
+  dismissMember,
+  hireCandidate,
+  rerollTavern,
+  rosterCap,
+} from './game/tavern';
 import { bindEvents, render, renderProgressOnly, ui } from './ui/app';
 import { flash } from './ui/toast';
 import { startBackupWatch } from './ui/backup';
@@ -78,6 +85,14 @@ declare global {
         season: () => unknown;
       };
       simulate: (dungeonId: string, memberIds: string[]) => unknown;
+      tavern: {
+        state: () => unknown;
+        roster: () => unknown;
+        hire: (candidateId: string) => unknown;
+        reroll: (free: boolean) => unknown;
+        dismiss: (memberId: string) => unknown;
+        codex: () => unknown;
+      };
       build: string;
     };
   }
@@ -98,6 +113,9 @@ function boot(): void {
 
   // 离线落地：把到期的派遣直接推成 ready（无需计算离线收益）
   const becameReady = refreshExpeditions(state, Date.now());
+
+  // 名册维护：跨天换一批酒馆候选，并把已达成的名角补进名册
+  const joined = refreshRoster(state, Date.now());
 
   // 默认选人：坦克 + 治疗 + 两名输出
   if (ui.party.length === 0) {
@@ -124,9 +142,18 @@ function boot(): void {
     const before = st.expeditions.filter((e) => !e.collected && e.status === 'ready').length;
     const cadence = refreshCadence(st, Date.now());
     const newly = refreshExpeditions(st, Date.now());
+    // 名角可能在任意时刻达成（塔层数、试炼分数、工房等级…），所以每次 tick 都查一遍
+    const joinedNow = refreshRoster(st, Date.now());
+
+    if (joinedNow.length > 0) {
+      flash(`${joinedNow.join('、')} 加入了名册`);
+      saveGame(st);
+      render();
+      return;
+    }
 
     if (cadence.dayChanged) {
-      flash('每日重置：任务轮盘已刷新');
+      flash('每日重置：任务轮盘已刷新，酒馆也换了一批人');
       saveGame(st);
       render();
       return;
@@ -153,11 +180,18 @@ function boot(): void {
   if (loaded.issue === 'recovered') flash('存档异常，已从备份恢复');
   else if (loaded.issue === 'invalid') flash('存档损坏，已新建存档');
   else if (loaded.issue === 'digest-repaired') flash('存档校验异常，已修复并继续（未丢档）');
+  else if (joined.length > 0) flash(`${joined.join('、')} 加入了名册`);
   else if (loaded.migrated) flash('存档已升级到新版本');
   else if (becameReady > 0) flash(`离线期间有 ${becameReady} 支队伍完成探索`);
 
   // 迁移过或修复过的存档立刻回写
-  if (loaded.migrated || loaded.issue === 'digest-repaired' || cadence0.dayChanged || cadence0.weekChanged) {
+  if (
+    loaded.migrated ||
+    loaded.issue === 'digest-repaired' ||
+    cadence0.dayChanged ||
+    cadence0.weekChanged ||
+    joined.length > 0
+  ) {
     saveGame(state);
   }
 
@@ -209,6 +243,24 @@ function boot(): void {
       memory: () => store.require().towerMemory,
       best: () => store.require().towerBest,
       season: () => store.require().towerSeason,
+    },
+    tavern: {
+      state: () => store.require().tavern,
+      roster: () => {
+        const st = store.require();
+        return {
+          count: st.members.length,
+          cap: rosterCap(st),
+          members: st.members.map((m) => ({
+            id: m.id, name: m.name, job: m.job, kind: m.kind, rarity: m.rarity,
+            level: m.level, potential: m.potential,
+          })),
+        };
+      },
+      hire: (candidateId: string) => hireCandidate(store.require(), candidateId),
+      reroll: (free: boolean) => rerollTavern(store.require(), Date.now(), free),
+      dismiss: (memberId: string) => dismissMember(store.require(), memberId),
+      codex: () => companionStatus(store.require()),
     },
     simulate: (dungeonId: string, memberIds: string[]) => {
       const st = store.require();

@@ -51,14 +51,53 @@ export interface JobDef {
 }
 
 /** 拂晓伙伴（对应蓝图 §2 决策一：光之战士 + 拂晓血盟） */
+/** 八大种族（仅用于酒馆佣兵的名字生成与展示） */
+export type RaceId = 'hyur' | 'elezen' | 'miqote' | 'lalafell' | 'roegadyn' | 'auRa';
+
+/** 佣兵稀有度：只影响"资质"，名角不参与 */
+export type Rarity = 'common' | 'uncommon' | 'rare' | 'epic';
+
+/** 名角的获得条件（里程碑刻意挂在已有系统上，让"多玩一个系统"有人物奖励） */
+export type UnlockCond =
+  | { kind: 'chapter'; chapter: number }
+  | { kind: 'towerFloor'; floor: number }
+  | { kind: 'trialScore'; score: number }
+  | { kind: 'relicFinal' }
+  | { kind: 'facilityLevel'; level: number }
+  | { kind: 'clearedCount'; count: number };
+
 export interface CompanionDef {
   id: string;
   name: string;
   nameEn: string;
   job: JobId;
+  race: RaceId;
   title: string;
-  /** 解锁所需完成的最低章节 */
-  unlockChapter: number;
+  /** 获得条件：主线章节或某个系统的里程碑 */
+  unlock: UnlockCond;
+}
+
+/** 酒馆候选（当天固定，不因反复开关页面而变） */
+export interface HireCandidate {
+  id: string;
+  name: string;
+  race: RaceId;
+  job: JobId;
+  rarity: Rarity;
+  level: number;
+  /** 资质：属性系数 */
+  potential: number;
+  cost: number;
+}
+
+export interface TavernState {
+  /** 候选对应的日期键（跨天就换一批） */
+  dayKey: string;
+  candidates: HireCandidate[];
+  /** 今天的免费刷新用掉了吗 */
+  freeUsed: boolean;
+  /** 今天已经付费重 roll 了几次（只用于展示） */
+  paidRolls: number;
 }
 
 export interface ItemDef {
@@ -95,10 +134,17 @@ export interface DungeonDef {
 /** 队伍成员 = 伙伴或主角，带装备 */
 export interface MemberState {
   id: string;
-  /** 绑定的伙伴定义 id（主角为 'wol'） */
+  /** 名角绑定伙伴定义 id；佣兵用 `hire:<候选id>` */
   defId: string;
   name: string;
   job: JobId;
+  /** 名角（剧情人物）还是酒馆雇来的佣兵 */
+  kind: 'named' | 'hire';
+  race: RaceId;
+  /** 佣兵的稀有度；名角恒为 'common'（不参与稀有度竞争） */
+  rarity: Rarity;
+  /** 资质系数：属性乘数。名角固定 1.0 */
+  potential: number;
   level: number;
   exp: number;
   /** 当前装备 */
@@ -302,6 +348,8 @@ export interface GameState {
   relicFinalBonus: boolean;
   /** 离线生产设施（工房） */
   facility: FacilityState;
+  /** 酒馆：每日候选与刷新状态 */
+  tavern: TavernState;
   /** 进行中的无尽塔攀爬（null = 没有） */
   tower: TowerRun | null;
   /** 塔之记忆：软重置保留的永久加成（0.35 = +35%） */

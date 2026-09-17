@@ -66,6 +66,18 @@ import { icon, jobIconName, nodeIconName, roleIconName, slotIconName, type IconN
 import { currentTheme, themeLabel, toggleTheme } from './theme';
 import { exportNow } from './backup';
 import { singleFileUrl, versionLabel } from './version';
+import { RACE_BY_ID, RARITY_BY_ID } from '../data/hires';
+import {
+  companionStatus,
+  dismissBlockReason,
+  dismissMember,
+  hireCandidate,
+  namedDef,
+  rarityName,
+  rerollTavern,
+  rosterCap,
+  todayRerollCost,
+} from '../game/tavern';
 
 type TabId = 'dispatch' | 'trial' | 'tower' | 'party' | 'inventory' | 'cadence' | 'relic' | 'facility' | 'report';
 /** 副本列表筛选：待推进（默认）/ 已通关 / 全部 */
@@ -94,6 +106,10 @@ const ui = {
   /** 破魔试炼：正在查看的格子（null = 未选中） */
   inspectNode: null as number | null,
   openExpedition: '' as string,
+  /** 名册页：待确认辞退的成员 id（辞退是不可逆的，要二次确认） */
+  confirmDismiss: null as string | null,
+  /** 名册页：是否展开名角图鉴 */
+  showCodex: false,
 };
 
 /* ---------------- 工具 ---------------- */
@@ -415,6 +431,56 @@ const ACTIONS: Record<string, (el: HTMLElement, ev: Event) => void> = {
     flash(next === 'light' ? '已切到浅色主题' : '已切到深色主题');
     render();
   },
+
+  // ---- 酒馆与名册 ----
+  hire: (el) => {
+    const state = store.require();
+    const r = hireCandidate(state, el.dataset.candidate!);
+    if (!r.ok) return flash(r.reason ?? '雇佣失败');
+    saveGame(state);
+    const name = state.members[state.members.length - 1]?.name ?? '';
+    flash(`${name} 加入了名册`);
+    render();
+  },
+
+  'reroll-tavern': (el) => {
+    const state = store.require();
+    const free = el.dataset.free === '1';
+    const r = rerollTavern(state, Date.now(), free);
+    if (!r.ok) return flash(r.reason ?? '刷新失败');
+    saveGame(state);
+    flash(free ? '已免费刷新今日候选' : '候选已重 roll');
+    render();
+  },
+
+  'dismiss-ask': (el) => {
+    ui.confirmDismiss = el.dataset.member!;
+    render();
+  },
+
+  'dismiss-cancel': () => {
+    ui.confirmDismiss = null;
+    render();
+  },
+
+  dismiss: (el) => {
+    const state = store.require();
+    const id = el.dataset.member!;
+    const m = state.members.find((x) => x.id === id);
+    // 不需要手动"退还装备"：装备本身就存在背包里（成员只是引用它的 uid），
+    // 人走了，那些 uid 自然变成 freeItems() 里的空闲装备，谁都能再穿。
+    const r = dismissMember(state, id);
+    ui.confirmDismiss = null;
+    if (!r.ok) return flash(r.reason ?? '辞退失败');
+    saveGame(state);
+    flash(`${m?.name ?? '成员'} 已离开名册（装备回到空闲列表）`);
+    render();
+  },
+
+  'toggle-codex': () => {
+    ui.showCodex = !ui.showCodex;
+    render();
+  },
 };
 
 function scoreOf(item: ItemDef): number {
@@ -660,12 +726,20 @@ function renderMemberCard(state: GameState, m: MemberState): string {
       ${item ? `<span class="gear-ilvl">${item.itemLevel}</span>` : ''}
     </div>`;
   }).join('');
+  const def = namedDef(m);
+  const origin = def
+    ? `名角 · ${def.title}`
+    : `酒馆佣兵 · ${rarityName(m.rarity)}（资质 ×${m.potential.toFixed(2)}）`;
+  // 用 <details> 折起来：名册能有十几号人，全展开会让队伍页长到没法用。
+  // 默认收起，想细看某个人（装备 / 精通）再点开。
   return `
-  <div class="panel">
-    <div class="panel-head">
+  <details class="panel member-detail">
+    <summary class="panel-head">
       <div class="panel-title">${icon(jobIconName(m.job, job.role), 16)}${esc(m.name)} ${roleTag(m.job)}</div>
       <div class="panel-hint">${esc(job.name)} · Lv${m.level} · 平均装等 ${avg} · 出战 ${m.runs} 次</div>
-    </div>
+    </summary>
+    <div class="member-body">
+    <div class="small muted" style="margin:0 0 6px">${esc(origin)}</div>
     <div class="bar exp"><i style="width:${pct.toFixed(1)}%"></i></div>
     <div class="small muted" style="margin:4px 0 8px">经验 ${m.exp} / ${need}</div>
     <div class="row small">
@@ -681,7 +755,8 @@ function renderMemberCard(state: GameState, m: MemberState): string {
       <button class="btn btn-small" data-action="auto-equip" data-member="${m.id}">自动装备最优</button>
     </div>
     ${renderMasteryBlock(state, m)}
-  </div>`;
+    </div>
+  </details>`;
 }
 
 /**
@@ -731,6 +806,7 @@ function renderMasteryBlock(state: GameState, m: MemberState): string {
  * 所以在最上面加一张总览表（一屏看完所有人），详情卡保留在下面供深挖。
  */
 function renderPartyTab(state: GameState): string {
+  const cap = rosterCap(state);
   const rows = state.members
     .map((m) => {
       const snap = computeMemberStats(m, state.inventory, state.masteries?.[m.id] ?? [], relicTeamBonus(state));
@@ -738,8 +814,24 @@ function renderPartyTab(state: GameState): string {
       const owned = (state.masteries?.[m.id] ?? []).length;
       const relic = state.relics?.[m.id]?.stage ?? 0;
       const need = expToNext(m.level);
+      const def = namedDef(m);
+      const origin = def
+        ? `<span class="tag tag-named" data-tip="${esc(def.title)}（剧情人物）">名角</span>`
+        : `<span class="tag tag-hire" style="color:${rarityColor(m.rarity)};border-color:${rarityColor(m.rarity)}"
+             data-tip="酒馆佣兵 · ${rarityName(m.rarity)}（资质 ×${m.potential.toFixed(2)}）">${rarityName(m.rarity)}</span>`;
+      const block = dismissBlockReason(state, m.id);
+      const confirming = ui.confirmDismiss === m.id;
+      const dismissCell = block
+        ? `<button class="btn btn-small" disabled data-tip="${esc(block)}">辞退</button>`
+        : confirming
+          ? `<button class="btn btn-small btn-danger" data-action="dismiss" data-member="${m.id}"
+               data-tip="真的辞退？装备会留在背包里，但人没了">确认辞退</button>
+             <button class="btn btn-small" data-action="dismiss-cancel">算了</button>`
+          : `<button class="btn btn-small" data-action="dismiss-ask" data-member="${m.id}"
+               data-tip="辞退后这个人就没了，装备会回背包">辞退</button>`;
       return `<tr>
         <td class="ov-name"><span class="ov-job">${icon(jobIconName(m.job, JOBS[m.job].role), 16)}</span>${esc(m.name)}</td>
+        <td>${origin}</td>
         <td>${roleTag(m.job)}</td>
         <td class="ov-num">${m.level}</td>
         <td class="ov-num" data-tip="平均物品等级">${avg}</td>
@@ -754,6 +846,7 @@ function renderPartyTab(state: GameState): string {
         <td class="ov-act">
           <button class="btn btn-small" data-action="auto-equip" data-member="${m.id}"
             data-tip="按品质与属性自动换上更好的装备">自动装备</button>
+          ${dismissCell}
         </td>
       </tr>`;
     })
@@ -762,20 +855,112 @@ function renderPartyTab(state: GameState): string {
   const overview = `
   <div class="panel">
     <div class="panel-head">
-      <div class="panel-title">${icon('party', 16)}成员总览</div>
-      <div class="panel-hint">共 ${state.members.length} 人 · 点下方卡片查看装备与精通的细节</div>
+      <div class="panel-title">${icon('party', 16)}成员名册</div>
+      <div class="panel-hint">${state.members.length} / ${cap} 人 · 上限靠推进章节与扩建工房提升 · 点下方卡片看装备与精通</div>
     </div>
     <div class="table-wrap">
       <table class="ov-table">
         <thead><tr>
-          <th>成员</th><th>职能</th><th>等级</th><th>装等</th><th>生命</th><th>效力</th><th>精通</th><th>幻境</th><th>经验</th><th></th>
+          <th>成员</th><th>来源</th><th>职能</th><th>等级</th><th>装等</th><th>生命</th><th>效力</th><th>精通</th><th>幻境</th><th>经验</th><th></th>
         </tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
   </div>`;
 
-  return overview + state.members.map((m) => renderMemberCard(state, m)).join('');
+  return overview + renderTavern(state) + renderCodex(state) +
+    state.members.map((m) => renderMemberCard(state, m)).join('');
+}
+
+/** 稀有度对应的颜色（佣兵才有） */
+function rarityColor(r: MemberState['rarity']): string {
+  return RARITY_BY_ID[r]?.color ?? 'var(--q-common)';
+}
+
+/** 酒馆：今日候选 + 刷新 */
+function renderTavern(state: GameState): string {
+  const tv = state.tavern;
+  if (!tv) return '';
+  const cap = rosterCap(state);
+  const full = state.members.length >= cap;
+  const freeLeft = !tv.freeUsed;
+  const paid = todayRerollCost(state);
+
+  const cards = tv.candidates.length
+    ? tv.candidates
+        .map((c) => {
+          const afford = state.gold >= c.cost;
+          const why = full
+            ? `名册已满（${cap} 人），先辞退一个`
+            : afford
+              ? `花 ${c.cost} 金币雇下这名${RARITY_BY_ID[c.rarity].name}佣兵`
+              : `金币不足（需要 ${c.cost}）`;
+          return `
+      <div class="hire-card" style="border-left-color:${RARITY_BY_ID[c.rarity].color}">
+        <div class="hire-head">
+          <b>${esc(c.name)}</b>
+          <span class="hire-rarity" style="color:${RARITY_BY_ID[c.rarity].color}">${RARITY_BY_ID[c.rarity].name}</span>
+        </div>
+        <div class="hire-meta">
+          ${RACE_BY_ID[c.race].name} · ${esc(JOBS[c.job].name)}
+          <span class="muted">Lv ${c.level} · 资质 ×${c.potential.toFixed(2)}</span>
+        </div>
+        <button class="btn btn-small ${full || !afford ? '' : 'btn-primary'}"
+          data-action="hire" data-candidate="${c.id}"
+          ${full || !afford ? 'disabled' : ''} data-tip="${esc(why)}">雇佣 · ${c.cost} 金</button>
+      </div>`;
+        })
+        .join('')
+    : empty('party', '今天的候选都被你雇走了', '明天 04:00 会有新的一批；也可以直接花钱重 roll。');
+
+  return `
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">${icon('gold', 16)}酒馆 · 今日候选</div>
+      <div class="panel-hint">
+        每天 04:00 换一批 · 稀有度只影响资质（属性系数），名角不参与稀有度竞争
+      </div>
+    </div>
+    <div class="hire-grid">${cards}</div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn btn-small" data-action="reroll-tavern" data-free="1"
+        data-tip="${freeLeft ? '每天一次的免费刷新' : '今天的免费刷新已经用掉了'}"
+        ${freeLeft ? '' : 'disabled'}>免费刷新${freeLeft ? '（今日 1 次）' : '（已用完）'}</button>
+      <button class="btn btn-small" data-action="reroll-tavern" data-free="0"
+        data-tip="花金币立刻换一批候选"
+        ${state.gold >= paid ? '' : 'disabled'}>花钱重 roll · ${paid} 金</button>
+    </div>
+  </div>`;
+}
+
+/** 名角图鉴：已获得的点亮点，没拿到的写清楚怎么拿 —— 这就是"奖励人物"的可见性 */
+function renderCodex(state: GameState): string {
+  const list = companionStatus(state);
+  const owned = list.filter((x) => x.owned).length;
+  const cells = list
+    .map(({ def, owned: has, met, label }) => {
+      const cls = has ? 'codex-cell owned' : met ? 'codex-cell ready' : 'codex-cell';
+      const state_ = has ? '已在名册' : met ? '条件已达成，进入名册即可领取' : label;
+      return `
+      <div class="${cls}" data-tip="${esc(def.title)} · ${esc(state_)}">
+        <span class="codex-ico">${icon(jobIconName(def.job, JOBS[def.job].role), 16)}</span>
+        <span class="codex-name">${esc(def.name)}</span>
+        <span class="codex-how">${esc(has ? '已获得' : met ? '可领取' : label)}</span>
+      </div>`;
+    })
+    .join('');
+
+  return `
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">
+        <button class="btn btn-small" data-action="toggle-codex">${ui.showCodex ? '收起' : '展开'}</button>
+        名角图鉴 ${owned} / ${list.length}
+      </div>
+      <div class="panel-hint">剧情人物不带专属机制，就是"一个有名字、职业固定、免费到手的人"</div>
+    </div>
+    ${ui.showCodex ? `<div class="codex-grid">${cells}</div>` : ''}
+  </div>`;
 }
 
 function renderInventoryTab(state: GameState): string {
